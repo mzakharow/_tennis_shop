@@ -6,13 +6,11 @@
 
 {% block main %}
     {% for category in categories %}
-{#        <h1><a href="{{ category.get_absolute }}">{{ category.name }}</a></h1>#}
-{#        <h1><a href="{% url 'category_detail.get_absolute' %}">{{ category.name }}</a></h1>#}
-        <h1><a href="#">{{ category.name }}</a></h1>
+        <h1><a href="{% url 'ecomapp:category_detail' category.slug %}">{{ category.name }}</a></h1>
         {% for product in products %}
             {% if product.category == category %}
                 <div>
-                    <h3><a href="#">{{ product.title }}</a></h3>
+                    <h3><a href="{% url 'ecomapp:product_detail' product.slug %}">{{ product.title }}</a></h3>
                     <img src="{{ product.image.url }}" alt="" style="width:200px">
                 </div>
             {% endif %}

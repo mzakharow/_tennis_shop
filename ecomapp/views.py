@@ -22,8 +22,11 @@ def product_view(request, product_slug):
 
 def category_view(request, category_slug):
     category = Category.objects.get(slug=category_slug)
+    # products = Product.objects.filter(category=category)
+    products = category.product_set.all()   # product_set переменная обратного класса в django
     context = {
-        'category': category
+        'category': category,
+        'products': products
     }
     return render(request, 'ecomapp/category.html', context)
 

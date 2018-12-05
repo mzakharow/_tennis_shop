@@ -5,7 +5,18 @@
     <title>{% block title %}My title{% endblock %}</title>
 </head>
 <body>
-    <div>{% block main %}Main{% endblock %}</div>
-    <div>{% block sidebar %}Sidebar{% endblock %}</div>
+<h1><a href="{% url 'ecomapp:base' %}">Home</a></h1>
+<div>{% block main %}Main{% endblock %}</div>
+<div>{% block sidebar %}Sidebar{% endblock %}</div>
+<div>{% block footer %}
+    <div>
+        {% if not request.get_full_path == '/' %}   {# проверка на главную страницу #}
+        <h3>Это не главная страница</h3>
+            {% else %}
+            <h3>Это главная страница</h3>
+        {% endif %}
+    </div>
+{% endblock %}
+</div>
 </body>
 </html>

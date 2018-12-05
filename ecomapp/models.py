@@ -12,9 +12,9 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-    def get_absolute(self):
-        # return reverse('category_detail', args=self.slug)
-        return reverse('category_detail', kwargs={'category_slug': self.slug})
+    # def get_absolute(self):
+    #     # return reverse('category_detail', args=self.slug)
+    #     return reverse('category_detail', kwargs={'category_slug': self.slug})
 
 
 def pre_save_category_slug(sender, instance, *args, **kwargs):
@@ -60,5 +60,5 @@ class Product(models.Model):
     def __str__(self):
         return self.title
 
-    def get_absolute(self):
-        return reverse('product_detail', kwargs={'product_slug': self.slug})
+    # def get_absolute(self):
+    #     return reverse('product_detail', kwargs={'product_slug': self.slug})
