@@ -1,5 +1,5 @@
 from django.contrib import admin
-from ecomapp.models import Category, Brand, Product
+from ecomapp.models import Category, Brand, Product, CartItem, Cart
 
 
 class ProductAdmin(admin.ModelAdmin):
@@ -9,5 +9,6 @@ class ProductAdmin(admin.ModelAdmin):
 admin.site.register(Category)
 admin.site.register(Brand)
 admin.site.register(Product, ProductAdmin)
+admin.site.register(CartItem)
+admin.site.register(Cart)
 
-# Register your models here.

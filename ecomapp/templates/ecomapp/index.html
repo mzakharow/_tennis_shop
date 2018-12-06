@@ -5,6 +5,13 @@
 {% endblock %}
 
 {% block main %}
+    <div>
+        <ul>
+            <li>
+                <a href="{% url 'ecomapp:cart' %}">Корзина <span>{{ cart.item.qty }}</span></a>
+            </li>
+        </ul>
+    </div>
     {% for category in categories %}
         <h1><a href="{% url 'ecomapp:category_detail' category.slug %}">{{ category.name }}</a></h1>
         {% for product in products %}

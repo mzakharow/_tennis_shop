@@ -1,13 +1,15 @@
 from django.shortcuts import render
-from ecomapp.models import Category, Product
+from ecomapp.models import Category, Product, Cart
 
 
 def base_view(request):
     categories = Category.objects.all()
     products = Product.objects.all().filter(available=True)
+    cart = Cart.objects.first()
     context = {
         'categories': categories,
-        'products': products
+        'products': products,
+        'cart': cart
     }
     return render(request, 'ecomapp/index.html', context)
 
@@ -30,3 +32,9 @@ def category_view(request, category_slug):
     }
     return render(request, 'ecomapp/category.html', context)
 
+def cart_view(request):
+    cart = Cart.objects.first()
+    context = {
+        'cart': cart
+    }
+    return render(request, 'ecomapp/cart.html', context)

@@ -12,7 +12,7 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-    # def get_absolute(self):
+    # def get_absolute_url(self):
     #     # return reverse('category_detail', args=self.slug)
     #     return reverse('category_detail', kwargs={'category_slug': self.slug})
 
@@ -34,8 +34,9 @@ class Brand(models.Model):
 
 
 def image_folder(instance, filename):
-    filename = instance.slug + '.' + filename.split('.')[1] # filename.split('.')[1]- расширение файла
-    return "{0}/{1}".format(instance.slug, filename)
+    filename = instance.slug + '.' + filename.split('.')[1]    # filename.split('.')[1]- расширение файла
+    # return "{0}/{1}".format(instance.slug, filename)
+    return f'{instance.slug}/{filename}'    #   попробовать такой формат
 
 
 # Переопределения менеджера модели
@@ -60,5 +61,22 @@ class Product(models.Model):
     def __str__(self):
         return self.title
 
-    # def get_absolute(self):
+    # def get_absolute_url(self):
     #     return reverse('product_detail', kwargs={'product_slug': self.slug})
+
+
+class CartItem(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    qty = models.PositiveIntegerField(default=1)
+    item_total = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
+
+    def __str__(self):
+        return f'Cart item for product {self.product.title}'
+
+
+class Cart(models.Model):
+    item = models.ForeignKey(CartItem, blank=True, null=True, on_delete=models.DO_NOTHING)
+    cart_total = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
+
+    def __str__(self):
+        return str(self.id)
