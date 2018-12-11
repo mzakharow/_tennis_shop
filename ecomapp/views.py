@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from ecomapp.models import Category, Product, Cart
+from ecomapp.models import Category, Product, Cart, CartItem
 
 
 def base_view(request):
@@ -38,3 +38,13 @@ def cart_view(request):
         'cart': cart
     }
     return render(request, 'ecomapp/cart.html', context)
+
+
+# def add_to_cart_view(request, product_slug):
+#     product = Product.objects.get(slug=product_slug)
+#     new_item = CartItem.objects.get_or_create(product=product, item_total=product.price)
+#     cart = Cart.objects.first()
+#     if new_item not in cart.item.all():
+#         cart.item.add(new_item)
+#         cart.save()
+#         return HttpResponseRedirect('/ecomapp/cart/')

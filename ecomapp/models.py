@@ -75,7 +75,9 @@ class CartItem(models.Model):
 
 
 class Cart(models.Model):
-    item = models.ForeignKey(CartItem, blank=True, null=True, on_delete=models.DO_NOTHING)
+    # item = models.ForeignKey(CartItem, blank=True, null=True, on_delete=models.DO_NOTHING)
+    # cart_total = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
+    item = models.ManyToManyField(CartItem, blank=True)
     cart_total = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
 
     def __str__(self):
