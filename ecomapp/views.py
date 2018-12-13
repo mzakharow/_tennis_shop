@@ -1,5 +1,7 @@
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from ecomapp.models import Category, Product, Cart, CartItem
+from django.urls import reverse
 
 
 def base_view(request):
@@ -40,11 +42,18 @@ def cart_view(request):
     return render(request, 'ecomapp/cart.html', context)
 
 
-# def add_to_cart_view(request, product_slug):
-#     product = Product.objects.get(slug=product_slug)
-#     new_item = CartItem.objects.get_or_create(product=product, item_total=product.price)
-#     cart = Cart.objects.first()
-#     if new_item not in cart.item.all():
-#         cart.item.add(new_item)
-#         cart.save()
-#         return HttpResponseRedirect('/ecomapp/cart/')
+def add_to_cart_view(request, product_slug):
+    product = Product.objects.get(slug=product_slug)
+    new_item, _ = CartItem.objects.get_or_create(product=product, item_total=product.price)
+    cart = Cart.objects.first()
+    # for test_item in cart.item.all():
+    #     test_item
+    if new_item not in cart.item.all():
+        cart.item.add(new_item)
+        cart.save()
+        return HttpResponseRedirect('/cart/')
+        # return HttpResponseRedirect('/ecomapp/cart/')
+    # else:
+        # return HttpResponseRedirect('/cart/')
+    return HttpResponseRedirect('/cart/')
+    # HttpResponse(u'Опаньки')

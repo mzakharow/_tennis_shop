@@ -6,6 +6,10 @@
 
 {% block main %}
     <h2>{{ cart }}</h2>
+    {% for item in cart.item.all %}
+        <h4>{{ item.product.title }}</h4>
+        <h5>{{ item.qty }}</h5>
+    {% endfor %}
 
 {% endblock %}
 
