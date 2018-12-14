@@ -9,6 +9,7 @@
     {% for item in cart.item.all %}
         <h4>{{ item.product.title }}</h4>
         <h5>{{ item.qty }}</h5>
+        <a href='{% url "ecomapp:remove_from_cart" product_slug=item.product.slug %}'><button>Удалить</button></a>
     {% endfor %}
 
 {% endblock %}
