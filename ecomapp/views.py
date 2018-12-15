@@ -85,19 +85,8 @@ def add_to_cart_view(request, product_slug):
         request.session['cart_id'] = cart_id
         cart = Cart.objects.get(id=cart_id)
     product = Product.objects.get(slug=product_slug)
-    new_item, _ = CartItem.objects.get_or_create(product=product, item_total=product.price)
-    # cart = Cart.objects.first()
-    # for test_item in cart.item.all():
-    #     test_item
-    if new_item not in cart.item.all():
-        cart.item.add(new_item)
-        cart.save()
-        return HttpResponseRedirect('/cart/')
-        # return HttpResponseRedirect('/ecomapp/cart/')
-    # else:
-    # return HttpResponseRedirect('/cart/')
-    return HttpResponseRedirect('/cart/')
-    # HttpResponse(u'Опаньки')
+    cart.add_to_cart(product.slug)
+    return HttpResponseRedirect(reverse('ecomapp:cart'))
 
 
 def remove_from_cart_view(request, product_slug):
@@ -112,10 +101,54 @@ def remove_from_cart_view(request, product_slug):
         request.session['cart_id'] = cart_id
         cart = Cart.objects.get(id=cart_id)
     product = Product.objects.get(slug=product_slug)
-    for cart_item in cart.item.all():
-        if cart_item.product == product:
-            cart.item.remove(cart_item)
-            cart.save()
-            return HttpResponseRedirect('/cart/')
-    return HttpResponseRedirect('/cart/')
+    cart.remove_from_cart(product.slug)
+    return HttpResponseRedirect(reverse('ecomapp:cart'))
+
+
+# def add_to_cart_view(request, product_slug):
+#     try:
+#         cart_id = request.session['cart_id']
+#         cart = Cart.objects.get(id=cart_id)
+#         request.session['total'] = cart.item.count()
+#     except:
+#         cart = Cart()
+#         cart.save()
+#         cart_id = cart.id
+#         request.session['cart_id'] = cart_id
+#         cart = Cart.objects.get(id=cart_id)
+#     product = Product.objects.get(slug=product_slug)
+#     new_item, _ = CartItem.objects.get_or_create(product=product, item_total=product.price)
+#     # cart = Cart.objects.first()
+#     # for test_item in cart.item.all():
+#     #     test_item
+#     if new_item not in cart.item.all():
+#         cart.item.add(new_item)
+#         cart.save()
+#         return HttpResponseRedirect('/cart/')
+#         # return HttpResponseRedirect('/ecomapp/cart/')
+#     # else:
+#         # return HttpResponseRedirect('/cart/')
+#     return HttpResponseRedirect('/cart/')
+#     # HttpResponse(u'Опаньки')
+
+
+# def remove_from_cart_view(request, product_slug):
+#     try:
+#         cart_id = request.session['cart_id']
+#         cart = Cart.objects.get(id=cart_id)
+#         request.session['total'] = cart.item.count()
+#     except:
+#         cart = Cart()
+#         cart.save()
+#         cart_id = cart.id
+#         request.session['cart_id'] = cart_id
+#         cart = Cart.objects.get(id=cart_id)
+#     product = Product.objects.get(slug=product_slug)
+#     # for cart_item in cart.item.all():
+#     #     if cart_item.product == product:
+#     #         cart.item.remove(cart_item)
+#     #         cart.save()
+#     #         return HttpResponseRedirect('/cart/')
+#
+#     return HttpResponseRedirect('/cart/')
 
