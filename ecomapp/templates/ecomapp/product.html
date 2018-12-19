@@ -7,7 +7,13 @@
 {% block main %}
     <h2>{{ product.title }}</h2>
     <img src="{{ product.image.url }}" alt="" style="width:200px">
-    <a href="{% url 'ecomapp:add_to_cart' product_slug=product.slug %}"><button>Добавить в корзину</button></a>
+    <a href="{% url 'ecomapp:add_to_cart' product_slug=product.slug %}" class='add_to_cart' data-slug="{{ product.slug }}"><button>Добавить в корзину</button></a>
+
+
+
+    <script>
+        {#alert("hi")#}
+    </script>
 {% endblock %}
 
 {% block sidebar %}

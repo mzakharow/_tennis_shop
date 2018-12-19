@@ -6,16 +6,69 @@
 
 {% block main %}
     <h2>{{ cart }}</h2>
-    {% for item in cart.item.all %}
-        <h4>{{ item.product.title }}</h4>
-        <h5>{{ item.qty }}</h5>
-        <a href='{% url "ecomapp:remove_from_cart" product_slug=item.product.slug %}'><button>Удалить</button></a>
-    {% endfor %}
+    {% if cart.item.count > 0 %}
+        <table border=”4”>
+            <thead>
+            <tr>
+                <th>Товар</th>
+                <th>Количество</th>
+                <th>Цена</th>
+                <th></th>
+            </tr>
+            </thead>
 
+            {% for item in cart.item.all %}
+                <tbody>
+                <tr>
+                    <td><h4>{{ item.product.title }}</h4></td>
+                    <td>
+                        <form action="" method="get">
+                            <input type="number" name="qty" class="cart-item-qty" data-id="{{ item.id }}" value="{{ item.qty }}" min="1" style="width: 40px">
+                        </form>
+                    </td>
+                    <td><h5 id="cart-item-total-{{ item.id }}">{{ item.item_total }} руб.</h5></td>
+                    <td><a href='{% url 'ecomapp:remove_from_cart' product_slug=item.product.slug %}'><button>Удалить</button></a></td>
+                </tr>
+                </tbody>
+            {% endfor %}
+            <tfoot>
+            <tr>
+                <th>Итого:</th>
+                <th></th>
+                <th class="text-center" id="cart-total-price">{{ cart.cart_total }} руб.</th>
+                <th></th>
+            </tr>
+            </tfoot>
+        </table>
+    {% else %}
+        <h3>Ваша корзина пуста</h3>
+    {% endif %}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
-        alert("hi")
+        $(document).ready(function () {
+            $('.cart-item-qty').on('click', function () {
+                qty = $(this).val()
+                item_id = $(this).attr('data-id')
+                data = {
+                    qty: qty,
+                    item_id: item_id
+                }
+                $.ajax({
+                    type: "GET",
+                    url: '{% url 'ecomapp:change_item_qty' %}',
+                    data: data,
+                    success: function(data){
+                        $('#cart-item-total-'+item_id).html(parseFloat(data.item_total).toFixed(2) + ' руб.')
+                        $('#cart-total-price').html(parseFloat(data.cart_total_price).toFixed(2) + ' руб.')
+                    }
+                })
+            })
+        })
+
     </script>
 
+    {#    <script src="{% static 'component/js/component.js' %}"></script>#}
 {% endblock %}
 
 {% block sidebar %}
