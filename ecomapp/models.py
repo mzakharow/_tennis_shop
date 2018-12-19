@@ -1,6 +1,7 @@
 from decimal import Decimal
 
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import pre_save
 from django.urls import reverse
@@ -117,22 +118,36 @@ class Cart(models.Model):
         cart.save()
 
 
+# class Address(models.Model):
+#     full = models.CharField(max_length=128)
+#
+#     def __str__(self):
+#         return str(self.full)
+
+
 ORDER_STATUS_CHOICES = (
     ('Принят в обработку', 'Принят в обработку'),
     ('Выполняется', 'Выполняется'),
     ('Оплачен', 'Оплачен')
 )
 
+BUYING_TYPE_CHOICES = (
+    ('Самовывоз', 'Самовывоз'),
+    ('Доставка', 'Доставка')
+)
+
 
 class Order(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    # user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     items = models.ManyToManyField(Cart)
     total = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
     first_name = models.CharField(max_length=128)
     last_name = models.CharField(max_length=128)
     phone = models.CharField(max_length=12)
     address = models.CharField(max_length=256)
-    buying_type = models.CharField(max_length=16, choices=(('Самовывоз', 'Самовывоз'), ('Доставка', 'Доставка')))
+    # address = models.ForeignKey(Address, on_delete=models.PROTECT)
+    buying_type = models.CharField(max_length=16, choices=BUYING_TYPE_CHOICES)
     date = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=32, choices=ORDER_STATUS_CHOICES)
     comments = models.TextField()

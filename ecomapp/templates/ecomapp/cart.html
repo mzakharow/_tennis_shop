@@ -44,6 +44,10 @@
         <h3>Ваша корзина пуста</h3>
     {% endif %}
 
+    <br>
+
+    <a href='{% url 'ecomapp:checkout' %}'><button>Сделать заказ</button></a>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
         $(document).ready(function () {

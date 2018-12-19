@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block main %}
+    <h2>{{ cart }}</h2>
+
+    <table border=”4”>
+        <thead>
+        <tr>
+            <th>Товар</th>
+            <th>Количество</th>
+            <th>Цена</th>
+        </tr>
+        </thead>
+
+        {% for item in cart.item.all %}
+            <tbody>
+            <tr>
+                <td><h4>{{ item.product.title }}</h4></td>
+                <td>{{ item.qty }}</td>
+                <td><h5 id="cart-item-total-{{ item.id }}">{{ item.item_total }} руб.</h5></td>
+            </tr>
+            </tbody>
+        {% endfor %}
+        <tfoot>
+        <tr>
+            <th>Итого:</th>
+            <th></th>
+            <th>{{ cart.cart_total }} руб.</th>
+        </tr>
+        </tfoot>
+    </table>
+
+    <br>
+
+    <a href='{% url 'ecomapp:create_order' %}'><button>Оформить заказ</button></a>
+
+{% endblock %}
+
+{% block sidebar %}
+
+{% endblock %}
