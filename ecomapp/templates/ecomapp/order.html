@@ -1,9 +1,46 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
 {% endblock %}
 
 {% block main %}
+    <form action="" method="post"></form>
+    <div>{{ form.name.label }}: {{ form.name }} {{ form.last_name.label }}: {{ form.last_name }}</div>
+    <div>{{ form.phone.label }}: {{ form.phone }}</div>
+    <div>{{ form.date.label }}: {{ form.date }}</div>
+    <div>{{ form.address.label }}: {{ form.address }}</div>
+    <div onClick="btnClick()">{{ form.buying_type.label }}: {{ form.buying_type }}</div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div>{{ form.comments.label }}: {{ form.comments }}</div>
+    <br>
+    <input type="submit" class="btn btn-success" value="Оформить заказ" onClick="btnClick(this)">
+
+    <details open="open">
+        <summary>Скрытый текст</summary>
+        <div style="border: 1px dotted red;">
+            <p>Текст</p>
+        </div>
+    </details>
+
+    <script>
+        <!--
+        function btnClick(a)
+        {
+            alert('hello' + a.value)
+            {#var Txt1 = "";#}
+            {#var Txt2 = "";#}
+            {#Txt1 = document.Test.bt.value;#}
+            {#Txt2 = document.Test.bt.name;#}
+            {#document.getElementById('ex1').innerHTML="<HR>"+#}
+            {#    "Вы нажали кнопку: " + Txt1.bold() +#}
+            {#    " с именем: "  + Txt2.bold() +"<HR>";#}
+        }
+        //-->
+    </script>
+
 {% endblock %}
 
 {% block sidebar %}
