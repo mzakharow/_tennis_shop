@@ -9,7 +9,7 @@
 
     {% for product in products %}
         <h2>{{ product.title }}</h2>
-        <h4><a href="{% url 'ecomapp:product_detail' product.slug %}">{{ product.title }}</a></h4>
+        <h4><a href="{% url 'shop:product_detail' product.slug %}">{{ product.title }}</a></h4>
     {% endfor %}
 {% endblock %}
 

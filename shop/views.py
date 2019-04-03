@@ -2,9 +2,10 @@ from decimal import Decimal
 
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render
-from ecomapp.models import Category, Product, Cart, CartItem
+from shop.models import Category, Product, Cart, CartItem
 from django.urls import reverse
-from ecomapp.forms import OrderForm
+from shop.forms import OrderForm
+
 
 def base_view(request):
     categories = Category.objects.all()
@@ -25,7 +26,7 @@ def base_view(request):
         'products': products,
         'cart': cart
     }
-    return render(request, 'ecomapp/index.html', context)
+    return render(request, 'shop/index.html', context)
 
 
 def product_view(request, product_slug):
@@ -43,7 +44,7 @@ def product_view(request, product_slug):
     context = {
         'product': product
     }
-    return render(request, 'ecomapp/product.html', context)
+    return render(request, 'shop/product.html', context)
 
 
 def category_view(request, category_slug):
@@ -54,7 +55,7 @@ def category_view(request, category_slug):
         'category': category,
         'products': products
     }
-    return render(request, 'ecomapp/category.html', context)
+    return render(request, 'shop/category.html', context)
 
 
 def cart_view(request):
@@ -72,7 +73,7 @@ def cart_view(request):
     context = {
         'cart': cart
     }
-    return render(request, 'ecomapp/cart.html', context)
+    return render(request, 'shop/cart.html', context)
 
 
 def add_to_cart_view(request, product_slug):
@@ -93,7 +94,7 @@ def add_to_cart_view(request, product_slug):
         new_cart_total += float(item.item_total)
     cart.cart_total = new_cart_total
     cart.save()
-    return HttpResponseRedirect(reverse('ecomapp:cart'))
+    return HttpResponseRedirect(reverse('shop:cart'))
 
 
 def remove_from_cart_view(request, product_slug):
@@ -114,7 +115,7 @@ def remove_from_cart_view(request, product_slug):
         new_cart_total += float(item.item_total)
     cart.cart_total = new_cart_total
     cart.save()
-    return HttpResponseRedirect(reverse('ecomapp:cart'))
+    return HttpResponseRedirect(reverse('shop:cart'))
 
 
 def change_item_qty(request):
@@ -157,7 +158,7 @@ def checkout_view(request):
     context = {
         'cart': cart
     }
-    return render(request, 'ecomapp/checkout.html', context)
+    return render(request, 'shop/checkout.html', context)
 
 
 def order_create_view(request):
@@ -175,10 +176,14 @@ def order_create_view(request):
     context = {
         'form': form
     }
-    return render(request, 'ecomapp/order.html', context)
+    return render(request, 'shop/order.html', context)
 
 
-
+# def make_order_view(request):
+#     try:
+#         cart_id = request.session['cart_id']
+#         cart = Cart.objects.get(id=cart_id)
+#         request.session['total'] = cart.items.count()
 
 
 # def add_to_cart_view(request, product_slug):
@@ -201,7 +206,7 @@ def order_create_view(request):
 #         cart.item.add(new_item)
 #         cart.save()
 #         return HttpResponseRedirect('/cart/')
-#         # return HttpResponseRedirect('/ecomapp/cart/')
+#         # return HttpResponseRedirect('/shop/cart/')
 #     # else:
 #         # return HttpResponseRedirect('/cart/')
 #     return HttpResponseRedirect('/cart/')

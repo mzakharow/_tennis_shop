@@ -2,13 +2,13 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
-import ecomapp.models
+import shop.models
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('ecomapp', '0001_initial'),
+        ('shop', '0001_initial'),
     ]
 
     operations = [
@@ -35,7 +35,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='product',
             name='image',
-            field=models.ImageField(upload_to=ecomapp.models.image_folder),
+            field=models.ImageField(upload_to=shop.models.image_folder),
         ),
         migrations.AlterField(
             model_name='product',
@@ -45,11 +45,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='cartitem',
             name='product',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='ecomapp.Product'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='shop.Product'),
         ),
         migrations.AddField(
             model_name='cart',
             name='item',
-            field=models.ForeignKey(blank=True, on_delete=django.db.models.deletion.CASCADE, to='ecomapp.CartItem'),
+            field=models.ForeignKey(blank=True, on_delete=django.db.models.deletion.CASCADE, to='shop.CartItem'),
         ),
     ]

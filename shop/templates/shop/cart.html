@@ -27,7 +27,7 @@
                         </form>
                     </td>
                     <td><h5 id="cart-item-total-{{ item.id }}">{{ item.item_total }} руб.</h5></td>
-                    <td><a href='{% url 'ecomapp:remove_from_cart' product_slug=item.product.slug %}'><button>Удалить</button></a></td>
+                    <td><a href='{% url 'shop:remove_from_cart' product_slug=item.product.slug %}'><button>Удалить</button></a></td>
                 </tr>
                 </tbody>
             {% endfor %}
@@ -46,7 +46,7 @@
 
     <br>
 
-    <a href='{% url 'ecomapp:checkout' %}'><button>Сделать заказ</button></a>
+    <a href='{% url 'shop:checkout' %}'><button>Сделать заказ</button></a>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
@@ -60,7 +60,7 @@
                 }
                 $.ajax({
                     type: "GET",
-                    url: '{% url 'ecomapp:change_item_qty' %}',
+                    url: '{% url 'shop:change_item_qty' %}',
                     data: data,
                     success: function(data){
                         $('#cart-item-total-'+item_id).html(parseFloat(data.item_total).toFixed(2) + ' руб.')

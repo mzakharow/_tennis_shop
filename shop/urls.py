@@ -1,16 +1,16 @@
 from django.conf.urls import url
 from django.urls import path
-from ecomapp.views import (base_view,
-                           product_view,
-                           category_view,
-                           cart_view,
-                           add_to_cart_view,
-                           remove_from_cart_view,
-                           change_item_qty,
-                           checkout_view,
-                           order_create_view)
+from shop.views import (base_view,
+                        product_view,
+                        category_view,
+                        cart_view,
+                        add_to_cart_view,
+                        remove_from_cart_view,
+                        change_item_qty,
+                        checkout_view,
+                        order_create_view)
 
-app_name = 'ecomapp'
+app_name = 'shop'
 
 urlpatterns = [
     path('category/<slug:category_slug>', category_view, name='category_detail'),

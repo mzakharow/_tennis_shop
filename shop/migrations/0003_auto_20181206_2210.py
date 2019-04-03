@@ -7,13 +7,13 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('ecomapp', '0003_auto_20181206_2210'),
+        ('shop', '0002_auto_20181206_2139'),
     ]
 
     operations = [
         migrations.AlterField(
             model_name='cart',
             name='item',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.DO_NOTHING, to='ecomapp.CartItem', unique=True),
+            field=models.ForeignKey(blank=True, default=None, null=True, on_delete=django.db.models.deletion.DO_NOTHING, to='shop.CartItem', unique=True),
         ),
     ]

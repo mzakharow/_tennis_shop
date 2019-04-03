@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('ecomapp', '0008_auto_20181211_2002'),
+        ('shop', '0008_auto_20181211_2002'),
     ]
 
     operations = [
@@ -32,18 +32,18 @@ class Migration(migrations.Migration):
                 ('date', models.DateTimeField(auto_now_add=True)),
                 ('status', models.CharField(choices=[('Принят в обработку', 'Принят в обработку'), ('Выполняется', 'Выполняется'), ('Оплачен', 'Оплачен')], max_length=32)),
                 ('comments', models.TextField()),
-                ('address', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='ecomapp.Address')),
+                ('address', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='shop.Address')),
             ],
         ),
         migrations.AlterField(
             model_name='cart',
             name='item',
-            field=models.ManyToManyField(blank=True, to='ecomapp.CartItem'),
+            field=models.ManyToManyField(blank=True, to='shop.CartItem'),
         ),
         migrations.AddField(
             model_name='order',
             name='items',
-            field=models.ManyToManyField(to='ecomapp.Cart'),
+            field=models.ManyToManyField(to='shop.Cart'),
         ),
         migrations.AddField(
             model_name='order',

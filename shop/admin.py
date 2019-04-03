@@ -1,5 +1,5 @@
 from django.contrib import admin
-from ecomapp.models import Category, Brand, Product, CartItem, Cart, Order
+from shop.models import Category, Brand, Product, CartItem, Cart, Order
 
 class ProductAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}  # автоматическое заполнение поле slug в админке

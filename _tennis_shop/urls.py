@@ -2,13 +2,13 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
-import ecomapp.urls
+import shop.urls
 from _tennis_shop import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # include(r'^', include('ecomapp.urls')),
-    path('', include(ecomapp.urls, namespace='ecomapp')),
+    # include(r'^', include('shop.urls')),
+    path('', include(shop.urls, namespace='shop')),
 ]
 
 if settings.DEBUG:

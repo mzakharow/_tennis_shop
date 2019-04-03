@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('ecomapp', '0007_auto_20181206_2218'),
+        ('shop', '0007_auto_20181206_2218'),
     ]
 
     operations = [
@@ -17,6 +17,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='cart',
             name='item',
-            field=models.ManyToManyField(to='ecomapp.CartItem'),
+            field=models.ManyToManyField(to='shop.CartItem'),
         ),
     ]

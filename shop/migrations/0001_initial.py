@@ -37,8 +37,8 @@ class Migration(migrations.Migration):
                 ('image', models.ImageField(upload_to='')),
                 ('price', models.DecimalField(decimal_places=2, max_digits=9)),
                 ('available', models.BooleanField(default=True)),
-                ('brand', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='ecomapp.Brand')),
-                ('category', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='ecomapp.Category')),
+                ('brand', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='shop.Brand')),
+                ('category', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='shop.Category')),
             ],
         ),
     ]
