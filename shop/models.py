@@ -12,7 +12,7 @@ from transliterate import translit
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=64)
     slug = models.SlugField(blank=True)
 
     def __str__(self):
@@ -33,7 +33,7 @@ pre_save.connect(pre_save_category_slug, sender=Category)
 
 
 class Brand(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=64)
 
     def __str__(self):
         return self.name
@@ -56,7 +56,7 @@ def image_folder(instance, filename):
 class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
     brand = models.ForeignKey(Brand, on_delete=models.DO_NOTHING)
-    title = models.CharField(max_length=140)
+    title = models.CharField(max_length=128)
     slug = models.SlugField(unique=True, default='')
     description = models.TextField()
     image = models.ImageField(upload_to=image_folder)
