@@ -23,13 +23,13 @@ class Category(models.Model):
     #     return reverse('category_detail', kwargs={'category_slug': self.slug})
 
 
-def pre_save_category_slug(sender, instance, *args, **kwargs):
-    if not instance.slug:
-        slug = slugify(translit(instance.name, reversed=True))
-        instance.slug = slug
-
-
-pre_save.connect(pre_save_category_slug, sender=Category)
+# def pre_save_category_slug(sender, instance, *args, **kwargs):
+#     if not instance.slug:
+#         slug = slugify(translit(instance.name, reversed=True))
+#         instance.slug = slug
+#
+#
+# pre_save.connect(pre_save_category_slug, sender=Category)
 
 
 class Brand(models.Model):
