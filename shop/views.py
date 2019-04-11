@@ -28,6 +28,27 @@ def base_view(request):
     }
     return render(request, 'shop/index.html', context)
 
+def contact_view(request):
+    categories = Category.objects.all()
+    products = Product.objects.all().filter(available=True)
+    # cart = Cart.objects.first()
+    try:
+        cart_id = request.session['cart_id']
+        cart = Cart.objects.get(id=cart_id)
+        request.session['total'] = cart.item.count()
+    except:
+        cart = Cart()
+        cart.save()
+        cart_id = cart.id
+        request.session['cart_id'] = cart_id
+        cart = Cart.objects.get(id=cart_id)
+    context = {
+        'categories': categories,
+        'products': products,
+        'cart': cart
+    }
+    return render(request, 'shop/contact.html', context)
+
 
 def product_view(request, product_slug):
     try:
@@ -60,6 +81,7 @@ def category_view(request, category_slug):
 
 def cart_view(request):
     # cart = Cart.objects.first()
+    categories = Category.objects.all()
     try:
         cart_id = request.session['cart_id']
         cart = Cart.objects.get(id=cart_id)
@@ -71,7 +93,8 @@ def cart_view(request):
         request.session['cart_id'] = cart_id
         cart = Cart.objects.get(id=cart_id)
     context = {
-        'cart': cart
+        'cart': cart,
+        'categories': categories
     }
     return render(request, 'shop/cart.html', context)
 
