@@ -1,9 +1,7 @@
 {% extends 'base.html' %}
 
-{#{% load static %}#}
-
 {% block title %}
-
+    <title>Большой Теннис</title>
 {% endblock %}
 
 {% block cart %}
@@ -19,7 +17,7 @@
         <div class="container">
             <!-- row -->
             <div class="row">
-                {#                <div><h2>Наш ассортимент:</h2></div>#}
+                {# <div><h2>Наш ассортимент:</h2></div>#}
                 {% for category in categories %}
                     <!-- shop -->
                     <div class="col-md-4 col-xs-6">
@@ -62,14 +60,14 @@
                                     <div class="col-md-4 col-xs-6">
                                         <div class="product">
                                             <div class="product-img">
-                                                <img src="{{ product.image.url }}" alt="">
+                                              <img src="{{ product.image.url }}" alt="">
                                                 <div class="product-label">
                                                     <span class="new">NEW</span>
                                                 </div>
                                             </div>
                                             <div class="product-body">
                                                 <p class="product-category">{{ product.brand.name }}</p>
-                                                <h3 class="product-name"><a href="#">{{ product.title }}</a></h3>
+                                                <h3 class="product-name"><a href="{% url 'shop:product_detail' product.slug %}">{{ product.title }}</a></h3>
                                                 <h4 class="product-price">{{ product.price }} руб.</h4>
                                             </div>
                                             <div class="add-to-cart">
@@ -316,28 +314,28 @@
     </div>
 
         <!-- SECTION -->
-        <div class="section">
-            <!-- container -->
-            <div class="container">
-                <!-- row -->
-                <div class="row">
-                    {% for category in categories %}
+{#        <div class="section">#}
+{#            <!-- container -->#}
+{#            <div class="container">#}
+{#                <!-- row -->#}
+{#                <div class="row">#}
+{#                    {% for category in categories %}#}
                         {#        <h1><a href="{% url 'shop:category_detail' category.slug %}">{{ category.name }}</a></h1>#}
-                        {% for product in products %}
-                            {% if product.category == category %}
-                                <div>
-                                    <h3><a href="{% url 'shop:product_detail' product.slug %}">{{ product.title }}</a></h3>
+{#                        {% for product in products %}#}
+{#                            {% if product.category == category %}#}
+{#                                <div>#}
+{#                                    <h3><a href="{% url 'shop:product_detail' product.slug %}">{{ product.title }}</a></h3>#}
                                     {#                    <img src="{{ product.image.url }}"  alt="" style="width:200px">#}
-                                    <a href="{% url 'shop:product_detail' product.slug%}"><img src="{{ product.image.url }}" width="200"></a>
-                                </div>
-                            {% endif %}
-                        {% endfor %}
-                    {% endfor %}
-                </div>
-                <!-- /row -->
-            </div>
-            <!-- /container -->
-        </div>
+{#                                    <a href="{% url 'shop:product_detail' product.slug%}"><img src="{{ product.image.url }}" width="200"></a>#}
+{#                                </div>#}
+{#                            {% endif %}#}
+{#                        {% endfor %}#}
+{#                    {% endfor %}#}
+{#                </div>#}
+{#                <!-- /row -->#}
+{#            </div>#}
+{#            <!-- /container -->#}
+{#        </div>#}
     </div>
 {% endblock %}
 

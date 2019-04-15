@@ -8,7 +8,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-		<title>Большой теннис</title>
+{#		<title>Большой теннис</title>#}
+        {% block title%}Большой теннис{% endblock %}
 
  		<!-- Google font -->
  		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
@@ -18,14 +19,13 @@
 
  		<!-- Slick -->
  		<link type="text/css" rel="stylesheet" href="{% static 'css/slick.css' %}"/>
- 		<link type="text/css" rel="stylesheet" href="/static/css/slick-theme.css"/>
+ 		<link type="text/css" rel="stylesheet" href="{% static 'css/slick-theme.css' %}"/>
 
  		<!-- nouislider -->
- 		<link type="text/css" rel="stylesheet" href="/static/css/nouislider.min.css"/>
+ 		<link type="text/css" rel="stylesheet" href="{% static 'css/nouislider.min.css' %}"/>
 
  		<!-- Font Awesome Icon -->
  		<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}"/>
-{#        <link rel="stylesheet" href="{% static 'css/style_test.css' %}"/>#}
 
  		<!-- Custom stlylesheet -->
  		<link type="text/css" rel="stylesheet" href="{% static 'css/style.css' %}"/>
@@ -50,7 +50,7 @@
 						<li><a href="{% url 'shop:contact' %}"><i class="fa fa-map-marker"></i> г. Москва, ул. Первого Мая, д.16</a></li>
 					</ul>
 					<ul class="header-links pull-right">
-						<li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+						<li><a href="#"><i class="fa fa-user-o"></i> Личный кабинет</a></li>
 					</ul>
 				</div>
 			</div>
@@ -65,8 +65,8 @@
 						<!-- LOGO -->
 						<div class="col-md-3">
 							<div class="header-logo">
-								<a href="#" class="logo">
-									<img src="/static/img/logo.png" alt="">
+								<a href="{% url 'shop:base' %}" class="logo">
+									<img src="{% static 'img/logo.png' %}" alt="">
 								</a>
 							</div>
 						</div>
@@ -135,7 +135,7 @@
                             <li><a href="/category/{{ category.slug }}">{{ category.name }}</a></li>
                         {% endfor %}
 						<li><a href="{% url 'shop:contact' %}">Контакты</a></li>
-						<li><a href="../about">О Нас</a></li>
+						<li><a href="{% url 'shop:about' %}">О Нас</a></li>
 					</ul>
 					<!-- /NAV -->
 				</div>
@@ -171,51 +171,6 @@
 			<!-- container -->
 			<div class="container">
                 <div>{% block main %}Main{% endblock %}</div>
-{#				<!-- row -->#}
-{#				<div class="row">#}
-{#					<!-- shop -->#}
-{#					<div class="col-md-4 col-xs-6">#}
-{#						<div class="shop">#}
-{#							<div class="shop-img">#}
-{#								<img src="./img/shop01.png" alt="">#}
-{#							</div>#}
-{#							<div class="shop-body">#}
-{#								<h3>Laptop<br>Collection</h3>#}
-{#								<a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>#}
-{#							</div>#}
-{#						</div>#}
-{#					</div>#}
-{#					<!-- /shop -->#}
-{##}
-{#					<!-- shop -->#}
-{#					<div class="col-md-4 col-xs-6">#}
-{#						<div class="shop">#}
-{#							<div class="shop-img">#}
-{#								<img src="./img/shop03.png" alt="">#}
-{#							</div>#}
-{#							<div class="shop-body">#}
-{#								<h3>Accessories<br>Collection</h3>#}
-{#								<a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>#}
-{#							</div>#}
-{#						</div>#}
-{#					</div>#}
-{#					<!-- /shop -->#}
-{##}
-{#					<!-- shop -->#}
-{#					<div class="col-md-4 col-xs-6">#}
-{#						<div class="shop">#}
-{#							<div class="shop-img">#}
-{#								<img src="./img/shop02.png" alt="">#}
-{#							</div>#}
-{#							<div class="shop-body">#}
-{#								<h3>Cameras<br>Collection</h3>#}
-{#								<a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>#}
-{#							</div>#}
-{#						</div>#}
-{#					</div>#}
-{#					<!-- /shop -->#}
-{#				</div>#}
-{#				<!-- /row -->#}
 			</div>
 			<!-- /container -->
 		</div>
@@ -265,10 +220,10 @@
 				<div class="container">
 					<!-- row -->
 					<div class="row">
-						<div class="col-md-3 col-xs-6">
+						<div class="col-lg-5 col-xs-6">
 							<div class="footer">
 								<h3 class="footer-title"> О Нас</h3>
-								<p>Наш магазин предлагает все необходимое для занятий большим теннисом.</p>
+								<p>Наш магазин предлагает все необходимое <br/> для занятий большим теннисом.</p>
 								<ul class="footer-links">
 									<li><a href="#"><i class="fa fa-map-marker"></i>г. Москва, ул. Первого Мая, д.16</a></li>
 									<li><a href="#"><i class="fa fa-phone"></i>+7 (999) 765-43-21</a></li>
@@ -277,9 +232,9 @@
 							</div>
 						</div>
 
-                        <div class="col-md-3 col-xs-6">
+                        <div class="col-lg-4 col-xs-6">
                             <div class="footer">
-                                <h3 class="footer-title">Categories</h3>
+                                <h3 class="footer-title">Категории</h3>
                                 <ul class="footer-links">
                                     {% for category in categories %}
                                         <li><a href="/category/{{ category.slug }}">{{ category.name }}</a></li>
@@ -292,26 +247,13 @@
 
 						<div class="col-md-3 col-xs-6">
 							<div class="footer">
-								<h3 class="footer-title">Information</h3>
+								<h3 class="footer-title">Информация</h3>
 								<ul class="footer-links">
-									<li><a href="#">About Us</a></li>
-									<li><a href="#">Contact Us</a></li>
-									<li><a href="#">Privacy Policy</a></li>
-									<li><a href="#">Orders and Returns</a></li>
-									<li><a href="#">Terms & Conditions</a></li>
-								</ul>
-							</div>
-						</div>
-
-						<div class="col-md-3 col-xs-6">
-							<div class="footer">
-								<h3 class="footer-title">Service</h3>
-								<ul class="footer-links">
-									<li><a href="#">My Account</a></li>
-									<li><a href="#">View Cart</a></li>
-									<li><a href="#">Wishlist</a></li>
-									<li><a href="#">Track My Order</a></li>
-									<li><a href="#">Help</a></li>
+									<li><a href="#">Глачная</a></li>
+									<li><a href="#">Контакты</a></li>
+									<li><a href="#">О Нас</a></li>
+									<li><a href="#">Корзина</a></li>
+									<li><a href="#">Личный кабинет</a></li>
 								</ul>
 							</div>
 						</div>
@@ -321,7 +263,6 @@
 				<!-- /container -->
 			</div>
 			<!-- /top footer -->
-
 		</footer>
 		<!-- /FOOTER -->
 
