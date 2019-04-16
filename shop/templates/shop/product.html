@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block breadcrumb %}
-{#    <div class="qty">{{ product.category.slug }} / {{ product.slug }}</div>#}
+    {#    <div class="qty">{{ product.category.slug }} / {{ product.slug }}</div>#}
     <li><a href="../category/{{ product.category.slug }}">{{ product.category }}</a></li>
     <li><a href={{ product.slug }}>{{ product.title }}</a></li>
 {% endblock %}

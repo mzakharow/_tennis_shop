@@ -1,25 +1,34 @@
 {% extends 'base.html' %}
 
 {% block title %}
+    <title>Корзина ({{ cart.item.count }} товара в корзине)</title>
+{% endblock %}
 
+{% block cart %}
+    <div class="qty">{{ cart.item.count }}</div>
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{% url 'shop:cart' %}">Корзина</a></li>
 {% endblock %}
 
 {% block main %}
-    <h2>{{ cart }}</h2>
+{#    <h2>{{ cart }}</h2>#}
     {% if cart.item.count > 0 %}
-        <table border=”4”>
+        <table class="table table-striped">
             <thead>
             <tr>
-                <th>Товар</th>
-                <th>Количество</th>
-                <th>Цена</th>
-                <th></th>
+                <th scope="col"></th>
+                <th scope="col">Товар</th>
+                <th scope="col">Количество</th>
+                <th scope="col">Цена</th>
+                <th scope="col"></th>
             </tr>
             </thead>
-
+            <tbody>
             {% for item in cart.item.all %}
-                <tbody>
                 <tr>
+                    <th scope="row"></th>
                     <td><h4>{{ item.product.title }}</h4></td>
                     <td>
                         <form action="" method="get">
@@ -27,26 +36,27 @@
                         </form>
                     </td>
                     <td><h5 id="cart-item-total-{{ item.id }}">{{ item.item_total }} руб.</h5></td>
-                    <td><a href='{% url 'shop:remove_from_cart' product_slug=item.product.slug %}'><button>Удалить</button></a></td>
+                    <td><a href='{% url 'shop:remove_from_cart' product_slug=item.product.slug %}'><button type="button" class="btn btn-danger">Удалить</button></a></td>
                 </tr>
-                </tbody>
             {% endfor %}
+            </tbody>
             <tfoot>
             <tr>
+                <th></th>
                 <th>Итого:</th>
                 <th></th>
-                <th class="text-center" id="cart-total-price">{{ cart.cart_total }} руб.</th>
+                <th class="text" id="cart-total-price"><h4>{{ cart.cart_total }} руб.</h4></th>
                 <th></th>
             </tr>
             </tfoot>
         </table>
+        </table>
+        <a href='{% url 'shop:checkout' %}'><button type="button" class="btn btn-success">Сделать заказ</button></a>
     {% else %}
         <h3>Ваша корзина пуста</h3>
     {% endif %}
 
     <br>
-
-    <a href='{% url 'shop:checkout' %}'><button>Сделать заказ</button></a>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>

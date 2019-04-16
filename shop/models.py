@@ -11,8 +11,15 @@ from transliterate import translit
 # from _tennis_shop import settings
 
 
+def image_folder(instance, filename):
+    filename = instance.slug + '.' + filename.split('.')[1]    # filename.split('.')[1]- расширение файла
+    # return "{0}/{1}".format(instance.slug, filename)
+    return f'{instance.slug}/{filename}'    #   попробовать такой формат
+
+
 class Category(models.Model):
     name = models.CharField(max_length=64)
+    image = models.ImageField(upload_to=image_folder)
     slug = models.SlugField(blank=True)
 
     def __str__(self):
@@ -37,12 +44,6 @@ class Brand(models.Model):
 
     def __str__(self):
         return self.name
-
-
-def image_folder(instance, filename):
-    filename = instance.slug + '.' + filename.split('.')[1]    # filename.split('.')[1]- расширение файла
-    # return "{0}/{1}".format(instance.slug, filename)
-    return f'{instance.slug}/{filename}'    #   попробовать такой формат
 
 
 # Переопределения менеджера модели
