@@ -183,7 +183,7 @@ def change_item_qty(request):
     item_id = request.GET.get('item_id')
     cart_item = CartItem.objects.get(id=int(item_id))
     # cart_item.qty = int(qty)
-    # cart_item.item_total = int(qty) * Decimal(cart_item.product.price)
+    cart_item.item_total = int(qty) * Decimal(cart_item.product.price)
     # cart_item.save()
     # new_cart_total = 0.00
     # for item in cart.item.all():
