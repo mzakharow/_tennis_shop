@@ -5,38 +5,42 @@
 {% endblock %}
 
 {% block main %}
-    <h2>{{ cart }}</h2>
-
-    <table border=”4”>
-        <thead>
-        <tr>
-            <th>Товар</th>
-            <th>Количество</th>
-            <th>Цена</th>
-        </tr>
-        </thead>
-
-        {% for item in cart.item.all %}
-            <tbody>
+    {% if cart.item.count > 0 %}
+        <table class="table table-striped">
+            <thead>
             <tr>
-                <td><h4>{{ item.product.title }}</h4></td>
-                <td>{{ item.qty }}</td>
-                <td><h5 id="cart-item-total-{{ item.id }}">{{ item.item_total }} руб.</h5></td>
+                <th scope="col"></th>
+                <th scope="col">Товар</th>
+                <th scope="col"">Количество</th>
+                <th scope="col" class="text-center">Цена</th>
             </tr>
+            </thead>
+            <tbody>
+            {% for item in cart.item.all %}
+                <tr>
+                    <th scope="row"></th>
+                    <td><h4>{{ item.product.title }}</h4></td>
+                    <td>{{ item.qty }}</td>
+                    <td class="text-center"><h5 id="cart-item-total-{{ item.id }}">{{ item.item_total }} руб.</h5></td>
+                </tr>
+            {% endfor %}
             </tbody>
-        {% endfor %}
-        <tfoot>
-        <tr>
-            <th>Итого:</th>
-            <th></th>
-            <th>{{ cart.cart_total }} руб.</th>
-        </tr>
-        </tfoot>
-    </table>
+            <tfoot>
+            <tr>
+                <th></th>
+                <th>Итого:</th>
+                <th></th>
+                <th class="text-center" id="cart-total-price"><h4>{{ cart.cart_total }} руб.</h4></th>
+            </tr>
+            </tfoot>
+        </table>
+        </table>
+        <a href='{% url 'shop:create_order' %}'><button type="button" class="btn btn-success">Оформить заказ</button></a>
+    {% else %}
+        <h3>Ваша корзина пуста</h3>
+    {% endif %}
 
     <br>
-
-    <a href='{% url 'shop:create_order' %}'><button>Оформить заказ</button></a>
 
 {% endblock %}
 

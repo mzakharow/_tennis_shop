@@ -14,18 +14,20 @@
 {% endblock %}
 
 {% block main %}
-    <form action="" method="post"></form>
-    <div>{{ form.name.label }}: {{ form.name }} {{ form.last_name.label }}: {{ form.last_name }}</div>
-    <div>{{ form.phone.label }}: {{ form.phone }}</div>
-    <div>{{ form.date.label }}: {{ form.date }}</div>
-    <div>{{ form.address.label }}: {{ form.address }}</div>
-    <div onClick="btnClick()">{{ form.buying_type.label }}: {{ form.buying_type }}</div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div>{{ form.comments.label }}: {{ form.comments }}</div>
-    <br>
+    <form action="" method="POST">{{ form }}</form>
+{#    <div>{{ form.name.label }}: {{ form.name }} {{ form.last_name.label }}: {{ form.last_name }}</div>#}
+{#    <div>{{ form.phone.label }}: {{ form.phone }}</div>#}
+{#    <div>{{ form.date.label }}: {{ form.date }}</div>#}
+{#    <div>{{ form.address.label }}: {{ form.address }}</div>#}
+{#    <div onClick="btnClick()">{{ form.buying_type.label }}: {{ form.buying_type }}</div>#}
+{#    <div></div>#}
+{#    <div></div>#}
+{#    <div></div>#}
+{#    <div>{{ form.comments.label }}: {{ form.comments }}</div>#}
     <input type="submit" class="btn btn-success" value="Оформить заказ" onClick="btnClick(this)">
+{#    </form>#}
+    <br>
+{#    <input type="submit" class="btn btn-success" value="Оформить заказ" onClick="btnClick(this)">#}
 
     <details open="open">
         <summary>Скрытый текст</summary>
