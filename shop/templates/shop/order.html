@@ -9,25 +9,170 @@
 {% endblock %}
 
 {% block breadcrumb %}
-{#    <div class="qty">{{ product.category.slug }} / {{ product.slug }}</div>#}
     <li><a href="#">Заказ</a></li>
 {% endblock %}
 
 {% block main %}
-    <form action="" method="POST">{{ form }}</form>
-{#    <div>{{ form.name.label }}: {{ form.name }} {{ form.last_name.label }}: {{ form.last_name }}</div>#}
-{#    <div>{{ form.phone.label }}: {{ form.phone }}</div>#}
-{#    <div>{{ form.date.label }}: {{ form.date }}</div>#}
-{#    <div>{{ form.address.label }}: {{ form.address }}</div>#}
-{#    <div onClick="btnClick()">{{ form.buying_type.label }}: {{ form.buying_type }}</div>#}
-{#    <div></div>#}
-{#    <div></div>#}
-{#    <div></div>#}
-{#    <div>{{ form.comments.label }}: {{ form.comments }}</div>#}
-    <input type="submit" class="btn btn-success" value="Оформить заказ" onClick="btnClick(this)">
-{#    </form>#}
+
+    <div class="section">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-7">
+                    <!-- Billing Details -->
+                    <div class="billing-details">
+                        <div class="section-title">
+                            <h3 class="title">Billing address</h3>
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Example label</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+                        </div>
+                        <div class="form-group">
+                            <input class="input" type="text" name="first-name" placeholder="First Name">
+                        </div>
+                        <div class="form-group">
+                            <input class="input" type="text" name="last-name" placeholder="Last Name">
+                        </div>
+                        <div class="form-group">
+                            <input class="input" type="email" name="email" placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <input class="input" type="text" name="address" placeholder="Address">
+                        </div>
+                        <div class="form-group">
+                            <input class="input" type="text" name="city" placeholder="City">
+                        </div>
+                        <div class="form-group">
+                            <input class="input" type="text" name="country" placeholder="Country">
+                        </div>
+                        <div class="form-group">
+                            <input class="input" type="text" name="zip-code" placeholder="ZIP Code">
+                        </div>
+                        <div class="form-group">
+                            <input class="input" type="tel" name="tel" placeholder="Telephone">
+                        </div>
+                    </div>
+                    <!-- /Billing Details -->
+
+                    <!-- Order notes -->
+                    <div class="order-notes">
+                        <textarea class="input" placeholder="Order Notes"></textarea>
+                    </div>
+                    <!-- /Order notes -->
+                </div>
+
+                <!-- Order Details -->
+                <div class="col-md-5 order-details">
+                    <div class="section-title text-center">
+                        <h3 class="title">Ваш заказ</h3>
+                    </div>
+                    <div class="order-summary">
+                        <div class="order-col">
+                            <div><strong>Товар</strong></div>
+                            <div><strong>Цена</strong></div>
+                        </div>
+                        <div class="order-products">
+                            {% for item in cart.item.all %}
+
+                                <div class="order-col">
+                                    <div>{{ item.qty }}x {{ item.product.title }}</div>
+                                    <div>{{ item.item_total }}</div>
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+                        <div class="order-col">
+                            <div>Доставка</div>
+                            <div><strong>Бесплатно</strong></div>
+                        </div>
+                        <div class="order-col">
+                            <div><strong>Всего (руб.)</strong></div>
+                            <div><strong class="order-total">{{ cart.cart_total }}</strong></div>
+                        </div>
+                    </div>
+                    <div class="payment-method">
+                        <div class="input-radio">
+                            <input type="radio" name="payment" id="payment-1">
+                            <label for="payment-1">
+                                <span></span>
+                                Оплата наличными курьеру
+                            </label>
+                            <div class="caption">
+                                <p>Заказ можно полатить наличными курьеру в момент получения.</p>
+                            </div>
+                        </div>
+                        <div class="input-radio">
+                            <input type="radio" name="payment" id="payment-2">
+                            <label for="payment-2">
+                                <span></span>
+                                Оплата картой курьеру
+                            </label>
+                            <div class="caption">
+                                <p>Заказ можно полатить банковской картой курьеру в момент получения.</p>
+                            </div>
+                        </div>
+                        <div class="input-radio">
+                            <input type="radio" name="payment" id="payment-3">
+                            <label for="payment-3">
+                                <span></span>
+                                Безналичная оплата
+                            </label>
+                            <div class="caption">
+                                <p>Заказ можно оплатить банковским переводом. В момент подтверждения заказа менеджер расскажет все подробности.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-checkbox">
+                        <input type="checkbox" id="terms">
+                        <label for="terms">
+                            <span></span>
+                            Я подтверждаю правильность заказа и выранный способ оплаты
+                        </label>
+                    </div>
+                    <a href="#" class="primary-btn order-submit">Оформить заказ</a>
+                </div>
+                <!-- /Order Details -->
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <form action="" method="POST">
+        <div class="form">
+            {#            {{ form }}#}
+            <div class="billing-details">
+                <div class="form-group">
+                    <input class="input" type="text" name="first-name" placeholder="First Name">
+                </div>
+                <div>{{ form.name.label }}: {{ form.name }} {{ form.last_name.label }}: {{ form.last_name }}</div>
+                <div>{{ form.phone.label }}: {{ form.phone }}</div>
+                <div>{{ form.date.label }}: {{ form.date }}</div>
+                <div>{{ form.address.label }}: {{ form.address }}</div>
+                <div onClick="btnClick()">{{ form.buying_type.label }}: {{ form.buying_type }}</div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div>{{ form.comments.label }}: {{ form.comments }}</div>
+                <input type="submit" class="btn btn-success" value="Оформить заказ" onClick="btnClick(this)">
+            </div>
+        </div>
+    </form>
     <br>
-{#    <input type="submit" class="btn btn-success" value="Оформить заказ" onClick="btnClick(this)">#}
+    {#    <input type="submit" class="btn btn-success" value="Оформить заказ" onClick="btnClick(this)">#}
 
     <details open="open">
         <summary>Скрытый текст</summary>
