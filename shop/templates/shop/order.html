@@ -14,6 +14,8 @@
 
 {% block main %}
 
+    <form action='{% url "shop:make_order" %}' method="POST">
+    {% csrf_token %}
     <div class="section">
         <div class="container">
             <div class="row">
@@ -22,12 +24,45 @@
                     <!-- Billing Details -->
                     <div class="billing-details">
                         <div class="section-title">
-                            <h3 class="title">Billing address</h3>
+                            <h3 class="title">Параметры доставки</h3>
                         </div>
                         <div class="form-group">
                             <label for="formGroupExampleInput">Example label</label>
                             <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
                         </div>
+
+                        <div class="form-group">
+                            <input type="text" name="name" required id="id_name" class="form-control" placeholder="{{ form.name.label }}">
+                            <span class="helptext">Номер телефона в формате +79011234567</span>
+                        </div>
+
+
+
+
+{#                        <div class="order-products">#}
+{#                            {% for item in cart.item.all %}#}
+{##}
+{#                                <div class="order-col">#}
+{#                                    <div>{{ item.qty }} x {{ item.product.title }}</div>#}
+{#                                    <div>{{ item.item_total }}</div>#}
+{#                                </div>#}
+{##}
+{#                            {% endfor %}#}
+{##}
+{#                        </div>#}
+
+                        <div class="form-group">
+                            {{ form.as_p }}
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Example label</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+                        </div>
+
+
+
                         <div class="form-group">
                             <input class="input" type="text" name="first-name" placeholder="First Name">
                         </div>
@@ -128,20 +163,37 @@
                         <input type="checkbox" id="terms">
                         <label for="terms">
                             <span></span>
-                            Я подтверждаю правильность заказа и выранный способ оплаты
+                            Я подтверждаю правильность заказа и выбранный способ оплаты
                         </label>
                     </div>
-                    <a href="#" class="primary-btn order-submit">Оформить заказ</a>
+                    <input type='submit' class='primary-btn order-submit' value='Оформить заказ'>
                 </div>
                 <!-- /Order Details -->
             </div>
         </div>
     </div>
+    </form>
 
 
 
 
-
+{#    <form action='{% url "make_order" %}' method="POST">#}
+{#        {% csrf_token %}#}
+{#        <div class='col-sm-4'>#}
+{#            {{ form.name|as_crispy_field }}#}
+{#        </div>#}
+{#        <div class='col-sm-4'>#}
+{#            {{ form.last_name|as_crispy_field }}#}
+{#        </div>#}
+{#        <div class='col-sm-4'>#}
+{#            {{ form.phone|as_crispy_field }}#}
+{#        </div>#}
+{#        {{ form.buying_type|as_crispy_field }}#}
+{#        {{ form.address|as_crispy_field }}#}
+{#        {{ form.date|as_crispy_field }}#}
+{#        {{ form.comments|as_crispy_field }}#}
+{#        <input type='submit' class='btn btn-success' value='Оформить заказ'>#}
+{#    </form>#}
 
 
 
@@ -153,7 +205,7 @@
 
     <form action="" method="POST">
         <div class="form">
-            {#            {{ form }}#}
+                        {{ form }}
             <div class="billing-details">
                 <div class="form-group">
                     <input class="input" type="text" name="first-name" placeholder="First Name">

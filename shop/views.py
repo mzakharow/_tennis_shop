@@ -240,7 +240,7 @@ def make_order_view(request):
         cart.save()
         cart_id = cart.id
         request.session['cart_id'] = cart_id
-        cart = Cart.objacts.get(id=cart_id)
+        cart = Cart.objects.get(id=cart_id)
     form = OrderForm(request.POST or None)
     if form.is_valid():
         name = form.cleaned_data['name']
@@ -262,7 +262,7 @@ def make_order_view(request):
         new_order.save()
         del request.session['cart_id']
         del request.session['total']
-        return HttpResponseRedirect(reverse('thank_you'))
+        return HttpResponseRedirect(reverse('make_order'))
 
 
 
