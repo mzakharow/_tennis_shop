@@ -223,9 +223,11 @@ def order_create_view(request):
         request.session['cart_id'] = cart_id
         cart = Cart.objects.get(id=cart_id)
     form = OrderForm(request.POST or None)
+    categories = Category.objects.all()
     context = {
         'cart': cart,
-        'form': form
+        'form': form,
+        'categories': categories
     }
     return render(request, 'shop/order.html', context)
 

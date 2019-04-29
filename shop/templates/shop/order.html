@@ -26,75 +26,35 @@
                         <div class="section-title">
                             <h3 class="title">Параметры доставки</h3>
                         </div>
-                        <div class="form-group">
-                            <label for="formGroupExampleInput">Example label</label>
-                            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
-                        </div>
 
                         <div class="form-group">
+                            <label for="name">Имя</label>
                             <input type="text" name="name" required id="id_name" class="form-control" placeholder="{{ form.name.label }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="last_name">Фамилия</label>
+                            <input type="text" name="last_name" id="id_last_name" class="form-control" placeholder="{{ form.last_name.label }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Телефон</label>
+                            <input type="text" name="phone" required id="id_phone" class="form-control" placeholder="{{ form.phone.label }}">
                             <span class="helptext">Номер телефона в формате +79011234567</span>
                         </div>
-
-
-
-
-{#                        <div class="order-products">#}
-{#                            {% for item in cart.item.all %}#}
-{##}
-{#                                <div class="order-col">#}
-{#                                    <div>{{ item.qty }} x {{ item.product.title }}</div>#}
-{#                                    <div>{{ item.item_total }}</div>#}
-{#                                </div>#}
-{##}
-{#                            {% endfor %}#}
-{##}
-{#                        </div>#}
-
                         <div class="form-group">
-                            {{ form.as_p }}
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="formGroupExampleInput">Example label</label>
-                            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
-                        </div>
-
-
-
-                        <div class="form-group">
-                            <input class="input" type="text" name="first-name" placeholder="First Name">
+                            <label for="date">Дата доставки</label>
+                            <input type="date" name="date" id="id_date" class="form-control">
                         </div>
                         <div class="form-group">
-                            <input class="input" type="text" name="last-name" placeholder="Last Name">
+                            <label for="address">Адрес доставки</label>
+                            <input type="text" name="address" id="id_address" class="form-control" placeholder="{{ form.address.label }}">
+                            <span class="help text">{{ form.address.help_text }}</span>
                         </div>
-                        <div class="form-group">
-                            <input class="input" type="email" name="email" placeholder="Email">
-                        </div>
-                        <div class="form-group">
-                            <input class="input" type="text" name="address" placeholder="Address">
-                        </div>
-                        <div class="form-group">
-                            <input class="input" type="text" name="city" placeholder="City">
-                        </div>
-                        <div class="form-group">
-                            <input class="input" type="text" name="country" placeholder="Country">
-                        </div>
-                        <div class="form-group">
-                            <input class="input" type="text" name="zip-code" placeholder="ZIP Code">
-                        </div>
-                        <div class="form-group">
-                            <input class="input" type="tel" name="tel" placeholder="Telephone">
+                        <div class="order-notes">
+                            <label for="OrderNotes">Комментарий к заказу</label>
+                            <textarea class="input" name="comments" id="id_comments" placeholder="Укажите подробности доставки"></textarea>
                         </div>
                     </div>
                     <!-- /Billing Details -->
-
-                    <!-- Order notes -->
-                    <div class="order-notes">
-                        <textarea class="input" placeholder="Order Notes"></textarea>
-                    </div>
-                    <!-- /Order notes -->
                 </div>
 
                 <!-- Order Details -->
@@ -173,65 +133,6 @@
         </div>
     </div>
     </form>
-
-
-
-
-{#    <form action='{% url "make_order" %}' method="POST">#}
-{#        {% csrf_token %}#}
-{#        <div class='col-sm-4'>#}
-{#            {{ form.name|as_crispy_field }}#}
-{#        </div>#}
-{#        <div class='col-sm-4'>#}
-{#            {{ form.last_name|as_crispy_field }}#}
-{#        </div>#}
-{#        <div class='col-sm-4'>#}
-{#            {{ form.phone|as_crispy_field }}#}
-{#        </div>#}
-{#        {{ form.buying_type|as_crispy_field }}#}
-{#        {{ form.address|as_crispy_field }}#}
-{#        {{ form.date|as_crispy_field }}#}
-{#        {{ form.comments|as_crispy_field }}#}
-{#        <input type='submit' class='btn btn-success' value='Оформить заказ'>#}
-{#    </form>#}
-
-
-
-
-
-
-
-
-
-    <form action="" method="POST">
-        <div class="form">
-                        {{ form }}
-            <div class="billing-details">
-                <div class="form-group">
-                    <input class="input" type="text" name="first-name" placeholder="First Name">
-                </div>
-                <div>{{ form.name.label }}: {{ form.name }} {{ form.last_name.label }}: {{ form.last_name }}</div>
-                <div>{{ form.phone.label }}: {{ form.phone }}</div>
-                <div>{{ form.date.label }}: {{ form.date }}</div>
-                <div>{{ form.address.label }}: {{ form.address }}</div>
-                <div onClick="btnClick()">{{ form.buying_type.label }}: {{ form.buying_type }}</div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div>{{ form.comments.label }}: {{ form.comments }}</div>
-                <input type="submit" class="btn btn-success" value="Оформить заказ" onClick="btnClick(this)">
-            </div>
-        </div>
-    </form>
-    <br>
-    {#    <input type="submit" class="btn btn-success" value="Оформить заказ" onClick="btnClick(this)">#}
-
-    <details open="open">
-        <summary>Скрытый текст</summary>
-        <div style="border: 1px dotted red;">
-            <p>Текст</p>
-        </div>
-    </details>
 
     <script>
         <!--
