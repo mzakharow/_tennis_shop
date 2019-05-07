@@ -7,9 +7,9 @@ class OrderForm(forms.Form):
 
     name = forms.CharField(label='Имя')
     last_name = forms.CharField(required=False, label='Фамилия')
-    phone = forms.CharField()
-    buying_type = forms.ChoiceField(widget=forms.Select(), choices=([("self", "Самовывоз"), ("delivery", "Доставка")]))
-    date = forms.DateField(widget=forms.SelectDateWidget(), initial=timezone.now())
+    phone = forms.CharField(required=False)
+    buying_type = forms.ChoiceField(widget=forms.Select(), required=False, choices=([("self", "Самовывоз"), ("delivery", "Доставка")]))
+    date = forms.DateField(widget=forms.SelectDateWidget(), initial=timezone.now(), required=False)
     address = forms.CharField(required=False)
     comments = forms.CharField(widget=forms.Textarea, required=False)
 

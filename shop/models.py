@@ -47,7 +47,7 @@ class Brand(models.Model):
 
 
 # Переопределения менеджера модели
-# сейчас переделали выборку запроса all, додбавив фильтр
+# переделали выборку запроса all, добавив фильтр
 # class ProductManager(models.Manager):
 #
 #     def all(self, *args, **kwargs):

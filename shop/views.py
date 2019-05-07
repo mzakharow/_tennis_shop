@@ -236,7 +236,7 @@ def make_order_view(request):
     try:
         cart_id = request.session['cart_id']
         cart = Cart.objects.get(id=cart_id)
-        request.session['total'] = cart.items.count()
+        request.session['total'] = cart.item.count()
     except:
         cart = Cart()
         cart.save()
@@ -244,6 +244,12 @@ def make_order_view(request):
         request.session['cart_id'] = cart_id
         cart = Cart.objects.get(id=cart_id)
     form = OrderForm(request.POST or None)
+    categories = Category.objects.all()
+    context = {
+        'cart': cart,
+        'form': form,
+        'categories': categories
+    }
     if form.is_valid():
         name = form.cleaned_data['name']
         last_name = form.cleaned_data['last_name']
@@ -254,6 +260,7 @@ def make_order_view(request):
         new_order = Order()
         new_order.user = request.user
         new_order.save()
+        new_order.items.add(cart)
         new_order.first_name = name
         new_order.last_name = last_name
         new_order.phone = phone
@@ -264,8 +271,9 @@ def make_order_view(request):
         new_order.save()
         del request.session['cart_id']
         del request.session['total']
-        return HttpResponseRedirect(reverse('make_order'))
-
+        return HttpResponseRedirect(reverse('shop:confirmation'))
+        # return render(request, 'shop/confirmation.html')
+    return render(request, 'shop/order.html', context)
 
 
 # def add_to_cart_view(request, product_slug):

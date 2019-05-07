@@ -1,5 +1,7 @@
 from django.conf.urls import url
 from django.urls import path
+from django.views.generic import TemplateView
+
 from shop.views import (base_view,
                         product_view,
                         category_view,
@@ -21,7 +23,7 @@ urlpatterns = [
     path('add_to_cart/<slug:product_slug>', add_to_cart_view, name='add_to_cart'),
     path('remove_from_cart/<slug:product_slug>', remove_from_cart_view, name='remove_from_cart'),
     path('change_item_qty', change_item_qty, name='change_item_qty'),
-    path('confirmation_order/', confirmation_order_view, name='confirmation_order'),
+    path('confirmation/', TemplateView.as_view(template_name='shop/confirmation.html'), name='confirmation'),
     path('order/', order_create_view, name='create_order'),
     path('make_order/', make_order_view, name='make_order'),
     path('cart/', cart_view, name='cart'),
