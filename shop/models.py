@@ -147,7 +147,6 @@ class Order(models.Model):
     last_name = models.CharField(max_length=128)
     phone = models.CharField(max_length=12)
     address = models.CharField(max_length=256)
-    # address = models.ForeignKey(Address, on_delete=models.PROTECT)
     buying_type = models.CharField(max_length=16, choices=BUYING_TYPE_CHOICES, default='Самовывоз')
     date = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=32, choices=ORDER_STATUS_CHOICES)

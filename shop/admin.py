@@ -6,7 +6,12 @@ class ProductAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}  # автоматическое заполнение поле slug в админке
 
 
-admin.site.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ['name', 'slug', 'image']     # зададим поля, которые можно редактировать на странице спимка
+    prepopulated_fields = {'slug': ('name', )}   # автоматическое заполнение поле slug в админке
+
+
+admin.site.register(Category, CategoryAdmin)
 admin.site.register(Brand)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(CartItem)
