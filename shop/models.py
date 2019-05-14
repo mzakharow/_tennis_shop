@@ -62,6 +62,7 @@ class Product(models.Model):
     description = models.TextField()
     image = models.ImageField(upload_to=image_folder)
     price = models.DecimalField(max_digits=9, decimal_places=2)   # max_digits количество знаков ;  decimal_places после запятой
+    # size = models.IntegerField(max_length=2)
     available = models.BooleanField(default=True)
     # objects = ProductManager()   # Переопределения менеджера модели
 
@@ -145,6 +146,7 @@ class Order(models.Model):
     total = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
     first_name = models.CharField(max_length=128)
     last_name = models.CharField(max_length=128)
+    # email = models.CharField(max_length=64)
     phone = models.CharField(max_length=12)
     address = models.CharField(max_length=256)
     buying_type = models.CharField(max_length=16, choices=BUYING_TYPE_CHOICES, default='Самовывоз')
