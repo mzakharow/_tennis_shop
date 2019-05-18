@@ -30,15 +30,6 @@ class Category(models.Model):
     #     return reverse('category_detail', kwargs={'category_slug': self.slug})
 
 
-# def pre_save_category_slug(sender, instance, *args, **kwargs):
-#     if not instance.slug:
-#         slug = slugify(translit(instance.name, reversed=True))
-#         instance.slug = slug
-#
-#
-# pre_save.connect(pre_save_category_slug, sender=Category)
-
-
 class Brand(models.Model):
     name = models.CharField(max_length=64)
 
@@ -47,7 +38,7 @@ class Brand(models.Model):
 
 
 # Переопределения менеджера модели
-# переделали выборку запроса all, добавив фильтр
+# переделаем выборку запроса all, добавив фильтр
 # class ProductManager(models.Manager):
 #
 #     def all(self, *args, **kwargs):
@@ -83,8 +74,6 @@ class CartItem(models.Model):
 
 
 class Cart(models.Model):
-    # item = models.ForeignKey(CartItem, blank=True, null=True, on_delete=models.DO_NOTHING)
-    # cart_total = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
     item = models.ManyToManyField(CartItem, blank=True)
     cart_total = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
 
@@ -140,8 +129,8 @@ BUYING_TYPE_CHOICES = (
 
 
 class Order(models.Model):
-    # user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    # user = models.ForeignKey(User, on_delete=models.CASCADE)
     items = models.ManyToManyField(Cart)
     total = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
     first_name = models.CharField(max_length=128)
