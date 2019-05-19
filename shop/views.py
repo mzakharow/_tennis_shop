@@ -1,5 +1,6 @@
 from decimal import Decimal
 
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render
 from shop.models import Category, Product, Cart, CartItem, Order
@@ -86,6 +87,7 @@ def about_view(request):
     return render(request, 'shop/about.html', context)
 
 
+@login_required
 def product_view(request, product_slug):
     try:
         cart_id = request.session['cart_id']
@@ -112,10 +114,12 @@ def category_view(request, category_slug):
     # products = Product.objects.filter(category=category)
     products = category.product_set.all()  # product_set переменная обратного класса в django
     categories = Category.objects.all()
+    cart = check_cart(request)
     context = {
         'category': category,
         'products': products,
         'categories': categories,
+        'cart': cart,
     }
     return render(request, 'shop/category.html', context)
 
@@ -270,3 +274,15 @@ def make_order_view(request):
         del request.session['total']
         return HttpResponseRedirect(reverse('shop:confirmation'))
     return render(request, 'shop/order.html', context)
+
+
+def account_view(request):
+    order = Order.objects.filter(user=request.user).order_by('-id')
+    categories = Category.objects.all()
+    cart = check_cart(request)
+    context = {
+        'categories': categories,
+        'cart': cart,
+        'order': order,
+    }
+    return render(request, 'shop/account.html', context)

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Заказы {{ request.user }}</title>
+{% endblock %}
+
+{% block cart %}
+    <div class="qty">{{ cart.item.count }}</div>
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{% url 'shop:account' %}">Личный кабинет</a></li>
+{% endblock %}
+
+{% block main %}
+    <h2 class="text-center">Личный кабинет пользователя {{ request.user }}</h2>
+    <hr>
+    <h3>Ваши заказы</h3>
+    <table class="table">
+    <tr style="background: #D10024">
+        <td class="text-center">Номер заказа</td>
+        <td class="text-center">Дата заказа</td>
+        <td class="text-center">Статус заказа</td>
+        <td class="text-center">Стоимость заказа</td>
+        <td class="text-center">Детали заказа</td>
+    </tr>
+    {% for item in order %}
+    <tr style="background: aliceblue">
+        <td class="text-center" style="padding-top:20px; padding-bottom: 20px;">{{ item.id }}</td>
+        <td class="text-center" style="padding-top:20px; padding-bottom: 20px;">{{ item.date }}</td>
+        <td class="text-center" style="padding-top:20px; padding-bottom: 20px;">{{ item.status }}</td>
+        <td class="text-center" style="padding-top:20px; padding-bottom: 20px;">{{ item.total }}</td>
+        <td class="text-center" style="padding-top:20px; padding-bottom: 20px;">{{ item.comments }}</td>
+    </tr>
+    {% endfor %}
+    </table>
+{% endblock %}
+
+{% block sidebar %}
+
+{% endblock %}

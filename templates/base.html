@@ -50,7 +50,11 @@
 						<li><a href="{% url 'shop:contact' %}"><i class="fa fa-map-marker"></i> г. Москва, ул. Первого Мая, д.16</a></li>
 					</ul>
 					<ul class="header-links pull-right">
-						<li><a href="#"><i class="fa fa-user-o"></i> Личный кабинет</a></li>
+						<li>
+                            <a href="#"><i class="fa fa-user-o"></i>
+                                {% if not request.user.is_authenticated %} Гость {% else %} {{ request.user }} {% endif %}
+                            </a>
+                        </li>
 					</ul>
 				</div>
 			</div>
@@ -82,7 +86,7 @@
                                             <option value="{{ category.slug }}">{{ category.name }}</option>
                                         {% endfor %}
                                     <input class="input" placeholder="Поиск">
-                                    <button class="search-btn">Search</button>
+                                    <button class="search-btn">Искать</button>
 								</form>
 							</div>
 						</div>
