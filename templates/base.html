@@ -48,20 +48,22 @@
 						<li><a href="{% url 'shop:contact' %}"><i class="fa fa-phone"></i> +7 (999) 765-43-21</a></li>
 						<li><a href="{% url 'shop:contact' %}"><i class="fa fa-envelope-o"></i> email@email.com</a></li>
 						<li><a href="{% url 'shop:contact' %}"><i class="fa fa-map-marker"></i> г. Москва, ул. Первого Мая, д.16</a></li>
-					</ul>
-					<ul class="header-links pull-right">
-						<li>
-                            <a href="#"><i class="fa fa-user-o"></i>
-                                {% if not request.user.is_authenticated %} Гость {% else %} {{ request.user }} {% endif %}
-                            </a>
+                    </ul>
+                    <ul class="header-links pull-right">
+                        <li>
+                            {% if not request.user.is_authenticated %}
+                                <a href="{% url 'shop:registration' %}"><i class="fa fa-user-o"></i>Гость</a>
+                            {% else %}
+                                <a href="{% url 'shop:account' %}"><i class="fa fa-user-o"></i>{{ request.user }}</a>
+                            {% endif %}
                         </li>
-					</ul>
-				</div>
-			</div>
-			<!-- /TOP HEADER -->
+                    </ul>
+                </div>
+            </div>
+            <!-- /TOP HEADER -->
 
-			<!-- MAIN HEADER -->
-			<div id="header">
+            <!-- MAIN HEADER -->
+            <div id="header">
 				<!-- container -->
 				<div class="container">
 					<!-- row -->
