@@ -5,13 +5,14 @@ from django.utils import timezone
 
 
 class RegistrationForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput)
     password_check = forms.CharField(widget=forms.PasswordInput)
-
     class Meta:
         model = User
         fields = [
             'username',
             'password',
+            'password_check',
             'first_name',
             'last_name',
             'email',
@@ -26,6 +27,16 @@ class RegistrationForm(forms.ModelForm):
         self.fields['last_name'].label = 'Фамилия'
         self.fields['email'].label = 'Email'
         self.fields['email'].help_text = 'Адрес электронной почты'
+
+    def clean(self):
+        username = self.cleaned_data['username']
+        password = self.cleaned_data['password']
+        password_check = self.cleaned_data['password_check']
+        if User.objects.filter(username=username).exists():
+            raise forms.ValidationError('Пользователь с таким именем уже зарегистрирован!')
+        elif password != password_check:
+            raise forms.ValidationError('Подтверждение не соответствует паролю!')
+
 
 class OrderForm(forms.Form):
     name = forms.CharField(label='Имя')

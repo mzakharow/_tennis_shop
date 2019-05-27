@@ -290,7 +290,9 @@ def account_view(request):
 
 def registration_view(request):
     form = RegistrationForm(request.POST or None)
+    cart = check_cart(request)
     context = {
         'form': form,
+        'cart': cart,
     }
     return render(request, 'shop/registration.html', context)

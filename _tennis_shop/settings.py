@@ -133,4 +133,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static',),)
 
-LOGIN_URL = '../shop/registration.html' #  here I need a login form
+LOGIN_URL = '../registration' #  here I need a login form
