@@ -291,6 +291,9 @@ def account_view(request):
 def registration_view(request):
     form = RegistrationForm(request.POST or None)
     cart = check_cart(request)
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect(reverse('shop:base'))
     context = {
         'form': form,
         'cart': cart,
