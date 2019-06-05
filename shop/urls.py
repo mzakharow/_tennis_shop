@@ -14,7 +14,8 @@ from shop.views import (base_view,
                         contact_view,
                         about_view,
                         account_view,
-                        registration_view)
+                        registration_view,
+                        login_view)
 
 app_name = 'shop'
 
@@ -32,5 +33,6 @@ urlpatterns = [
     path('about/', about_view, name='about'),
     path('account/', account_view, name='account'),
     path('registration/', registration_view, name='registration'),
+    path('login/', login_view, name='login'),
     path(r'', base_view, name='base'),
 ]

@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render
 from shop.models import Category, Product, Cart, CartItem, Order
 from django.urls import reverse
-from shop.forms import OrderForm, RegistrationForm
+from shop.forms import OrderForm, RegistrationForm, LoginForm
 
 
 def check_cart(request):
@@ -20,6 +20,7 @@ def check_cart(request):
         request.session['cart_id'] = cart_id
         cart = Cart.objects.get(id=cart_id)
     return cart
+
 
 def base_view(request):
     categories = Category.objects.all()
@@ -299,3 +300,16 @@ def registration_view(request):
         'cart': cart,
     }
     return render(request, 'shop/registration.html', context)
+
+
+def login_view(request):
+    form = LoginForm(request.POST or None)
+    cart = check_cart(request)
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect(reverse('shop:base'))
+    context = {
+        'form': form,
+        'cart': cart,
+    }
+    return render(request, 'shop/login.html', context)
