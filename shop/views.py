@@ -1,5 +1,6 @@
 from decimal import Decimal
 
+from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render
@@ -294,6 +295,8 @@ def registration_view(request):
     cart = check_cart(request)
     if form.is_valid():
         form.save()
+        user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
+        login(request, user=user)
         return HttpResponseRedirect(reverse('shop:base'))
     context = {
         'form': form,
@@ -306,7 +309,9 @@ def login_view(request):
     form = LoginForm(request.POST or None)
     cart = check_cart(request)
     if form.is_valid():
-        form.save()
+        # user = authenticate(username=request.POST['username'], password=request.POST['password'])
+        user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
+        login(request, user=user)
         return HttpResponseRedirect(reverse('shop:base'))
     context = {
         'form': form,
