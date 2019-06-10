@@ -48,17 +48,18 @@ def base_view(request):
 def contact_view(request):
     categories = Category.objects.all()
     products = Product.objects.all().filter(available=True)
+    cart = check_cart(request)
     # cart = Cart.objects.first()
-    try:
-        cart_id = request.session['cart_id']
-        cart = Cart.objects.get(id=cart_id)
-        request.session['total'] = cart.item.count()
-    except:
-        cart = Cart()
-        cart.save()
-        cart_id = cart.id
-        request.session['cart_id'] = cart_id
-        cart = Cart.objects.get(id=cart_id)
+    # try:
+    #     cart_id = request.session['cart_id']
+    #     cart = Cart.objects.get(id=cart_id)
+    #     request.session['total'] = cart.item.count()
+    # except:
+    #     cart = Cart()
+    #     cart.save()
+    #     cart_id = cart.id
+    #     request.session['cart_id'] = cart_id
+    #     cart = Cart.objects.get(id=cart_id)
     context = {
         'categories': categories,
         'products': products,
@@ -70,17 +71,18 @@ def contact_view(request):
 def about_view(request):
     categories = Category.objects.all()
     products = Product.objects.all().filter(available=True)
+    cart = check_cart(request)
     # cart = Cart.objects.first()
-    try:
-        cart_id = request.session['cart_id']
-        cart = Cart.objects.get(id=cart_id)
-        request.session['total'] = cart.item.count()
-    except:
-        cart = Cart()
-        cart.save()
-        cart_id = cart.id
-        request.session['cart_id'] = cart_id
-        cart = Cart.objects.get(id=cart_id)
+    # try:
+    #     cart_id = request.session['cart_id']
+    #     cart = Cart.objects.get(id=cart_id)
+    #     request.session['total'] = cart.item.count()
+    # except:
+    #     cart = Cart()
+    #     cart.save()
+    #     cart_id = cart.id
+    #     request.session['cart_id'] = cart_id
+    #     cart = Cart.objects.get(id=cart_id)
     context = {
         'categories': categories,
         'products': products,
@@ -91,16 +93,17 @@ def about_view(request):
 
 @login_required
 def product_view(request, product_slug):
-    try:
-        cart_id = request.session['cart_id']
-        cart = Cart.objects.get(id=cart_id)
-        request.session['total'] = cart.item.count()
-    except:
-        cart = Cart()
-        cart.save()
-        cart_id = cart.id
-        request.session['cart_id'] = cart_id
-        cart = Cart.objects.get(id=cart_id)
+    # try:
+    #     cart_id = request.session['cart_id']
+    #     cart = Cart.objects.get(id=cart_id)
+    #     request.session['total'] = cart.item.count()
+    # except:
+    #     cart = Cart()
+    #     cart.save()
+    #     cart_id = cart.id
+    #     request.session['cart_id'] = cart_id
+    #     cart = Cart.objects.get(id=cart_id)
+    cart = check_cart(request)
     product = Product.objects.get(slug=product_slug)
     categories = Category.objects.all()
     context = {
@@ -129,16 +132,17 @@ def category_view(request, category_slug):
 def cart_view(request):
     # cart = Cart.objects.first()
     categories = Category.objects.all()
-    try:
-        cart_id = request.session['cart_id']
-        cart = Cart.objects.get(id=cart_id)
-        request.session['total'] = cart.item.count()
-    except:
-        cart = Cart()
-        cart.save()
-        cart_id = cart.id
-        request.session['cart_id'] = cart_id
-        cart = Cart.objects.get(id=cart_id)
+    cart = check_cart(request)
+    # try:
+    #     cart_id = request.session['cart_id']
+    #     cart = Cart.objects.get(id=cart_id)
+    #     request.session['total'] = cart.item.count()
+    # except:
+    #     cart = Cart()
+    #     cart.save()
+    #     cart_id = cart.id
+    #     request.session['cart_id'] = cart_id
+    #     cart = Cart.objects.get(id=cart_id)
     context = {
         'cart': cart,
         'categories': categories
@@ -147,16 +151,17 @@ def cart_view(request):
 
 
 def add_to_cart_view(request, product_slug):
-    try:
-        cart_id = request.session['cart_id']
-        cart = Cart.objects.get(id=cart_id)
-        request.session['total'] = cart.item.count()
-    except:
-        cart = Cart()
-        cart.save()
-        cart_id = cart.id
-        request.session['cart_id'] = cart_id
-        cart = Cart.objects.get(id=cart_id)
+    # try:
+    #     cart_id = request.session['cart_id']
+    #     cart = Cart.objects.get(id=cart_id)
+    #     request.session['total'] = cart.item.count()
+    # except:
+    #     cart = Cart()
+    #     cart.save()
+    #     cart_id = cart.id
+    #     request.session['cart_id'] = cart_id
+    #     cart = Cart.objects.get(id=cart_id)
+    cart = check_cart(request)
     product = Product.objects.get(slug=product_slug)
     cart.add_to_cart(product.slug)
     new_cart_total = 0.00
@@ -168,16 +173,17 @@ def add_to_cart_view(request, product_slug):
 
 
 def remove_from_cart_view(request, product_slug):
-    try:
-        cart_id = request.session['cart_id']
-        cart = Cart.objects.get(id=cart_id)
-        request.session['total'] = cart.item.count()
-    except:
-        cart = Cart()
-        cart.save()
-        cart_id = cart.id
-        request.session['cart_id'] = cart_id
-        cart = Cart.objects.get(id=cart_id)
+    # try:
+    #     cart_id = request.session['cart_id']
+    #     cart = Cart.objects.get(id=cart_id)
+    #     request.session['total'] = cart.item.count()
+    # except:
+    #     cart = Cart()
+    #     cart.save()
+    #     cart_id = cart.id
+    #     request.session['cart_id'] = cart_id
+    #     cart = Cart.objects.get(id=cart_id)
+    cart = check_cart(request)
     product = Product.objects.get(slug=product_slug)
     cart.remove_from_cart(product.slug)
     new_cart_total = 0.00
@@ -189,16 +195,17 @@ def remove_from_cart_view(request, product_slug):
 
 
 def change_item_qty(request):
-    try:
-        cart_id = request.session['cart_id']
-        cart = Cart.objects.get(id=cart_id)
-        request.session['total'] = cart.item.count()
-    except:
-        cart = Cart()
-        cart.save()
-        cart_id = cart.id
-        request.session['cart_id'] = cart_id
-        cart = Cart.objects.get(id=cart_id)
+    # try:
+    #     cart_id = request.session['cart_id']
+    #     cart = Cart.objects.get(id=cart_id)
+    #     request.session['total'] = cart.item.count()
+    # except:
+    #     cart = Cart()
+    #     cart.save()
+    #     cart_id = cart.id
+    #     request.session['cart_id'] = cart_id
+    #     cart = Cart.objects.get(id=cart_id)
+    cart = check_cart(request)
     qty = request.GET.get('qty')
     item_id = request.GET.get('item_id')
     cart_item = CartItem.objects.get(id=int(item_id))
@@ -215,16 +222,17 @@ def change_item_qty(request):
 
 
 def order_create_view(request):
-    try:
-        cart_id = request.session['cart_id']
-        cart = Cart.objects.get(id=cart_id)
-        request.session['total'] = cart.item.count()
-    except:
-        cart = Cart()
-        cart.save()
-        cart_id = cart.id
-        request.session['cart_id'] = cart_id
-        cart = Cart.objects.get(id=cart_id)
+    # try:
+    #     cart_id = request.session['cart_id']
+    #     cart = Cart.objects.get(id=cart_id)
+    #     request.session['total'] = cart.item.count()
+    # except:
+    #     cart = Cart()
+    #     cart.save()
+    #     cart_id = cart.id
+    #     request.session['cart_id'] = cart_id
+    #     cart = Cart.objects.get(id=cart_id)
+    cart = check_cart(request)
     form = OrderForm(request.POST or None)
     categories = Category.objects.all()
     context = {
@@ -236,16 +244,17 @@ def order_create_view(request):
 
 
 def make_order_view(request):
-    try:
-        cart_id = request.session['cart_id']
-        cart = Cart.objects.get(id=cart_id)
-        request.session['total'] = cart.item.count()
-    except:
-        cart = Cart()
-        cart.save()
-        cart_id = cart.id
-        request.session['cart_id'] = cart_id
-        cart = Cart.objects.get(id=cart_id)
+    # try:
+    #     cart_id = request.session['cart_id']
+    #     cart = Cart.objects.get(id=cart_id)
+    #     request.session['total'] = cart.item.count()
+    # except:
+    #     cart = Cart()
+    #     cart.save()
+    #     cart_id = cart.id
+    #     request.session['cart_id'] = cart_id
+    #     cart = Cart.objects.get(id=cart_id)
+    cart = check_cart(request)
     form = OrderForm(request.POST or None)
     categories = Category.objects.all()
     context = {
@@ -257,21 +266,36 @@ def make_order_view(request):
         name = form.cleaned_data['name']
         last_name = form.cleaned_data['last_name']
         phone = form.cleaned_data['phone']
+        email = form.cleaned_data['email']
         buying_type = form.cleaned_data['buying_type']
         address = form.cleaned_data['address']
         comments = form.cleaned_data['comments']
-        new_order = Order()
-        new_order.user = request.user
-        new_order.save()
-        new_order.items.add(cart)
-        new_order.first_name = name
-        new_order.last_name = last_name
-        new_order.phone = phone
-        new_order.address = address
-        new_order.buying_type = buying_type
-        new_order.comments = comments
-        new_order.total = cart.cart_total
-        new_order.save()
+        new_order = Order.objects.create(
+            user=request.user,
+            items=cart,
+            total=cart.cart_total,
+            first_name=name,
+            last_name=last_name,
+            phone=phone,
+            email=email,
+            address=address,
+            buying_type=buying_type,
+            comments=comments
+        )
+        # new_order = Order()
+        # new_order.user = request.user
+        # # new_order.save()
+        # # new_order.items.add(cart)
+        # new_order.items = cart
+        # new_order.first_name = name
+        # new_order.last_name = last_name
+        # new_order.phone = phone
+        # new_order.address = address
+        # new_order.buying_type = buying_type
+        # new_order.comments = comments
+        # new_order.total = cart.cart_total
+        # new_order.email = cart.email
+        # new_order.save()
         del request.session['cart_id']
         del request.session['total']
         return HttpResponseRedirect(reverse('shop:confirmation'))

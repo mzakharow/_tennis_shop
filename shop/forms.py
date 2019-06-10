@@ -69,6 +69,7 @@ class RegistrationForm(forms.ModelForm):
 class OrderForm(forms.Form):
     name = forms.CharField(label='Имя')
     last_name = forms.CharField(required=False, label='Фамилия')
+    email = forms.CharField(required=False)
     phone = forms.CharField(required=False)
     buying_type = forms.ChoiceField(widget=forms.Select(), required=False, choices=([("self", "Самовывоз"), ("delivery", "Доставка")]))
     date = forms.DateField(widget=forms.SelectDateWidget(), initial=timezone.now(), required=False)
