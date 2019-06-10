@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from django.urls import path
+from django.contrib.auth.views import LogoutView
 from django.views.generic import TemplateView
 
 from shop.views import (base_view,
@@ -34,5 +35,6 @@ urlpatterns = [
     path('account/', account_view, name='account'),
     path('registration/', registration_view, name='registration'),
     path('login/', login_view, name='login'),
+    path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
     path(r'', base_view, name='base'),
 ]
