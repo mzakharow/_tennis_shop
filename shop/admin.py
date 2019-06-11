@@ -10,6 +10,7 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug', 'image']     # зададим поля, которые можно редактировать на странице спимка
     prepopulated_fields = {'slug': ('name', )}   # автоматическое заполнение поле slug в админке
 
+
 def make_payed(modeladmin, request, queryset):
     queryset.update(status='Оплачен')
 
