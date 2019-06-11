@@ -10,6 +10,16 @@ from shop.forms import OrderForm, RegistrationForm, LoginForm
 
 
 def check_cart(request):
+    # try:
+    #     cart_id = request.session['cart_id']
+    #     cart = Cart.objects.get(id=cart_id)
+    #     request.session['total'] = cart.item.count()
+    # except:
+    #     cart = Cart()
+    #     cart.save()
+    #     cart_id = cart.id
+    #     request.session['cart_id'] = cart_id
+    #     cart = Cart.objects.get(id=cart_id)
     cart_id = request.session.get('cart_id')
     if cart_id is not None:
         cart = Cart.objects.get(id=cart_id)
@@ -23,20 +33,11 @@ def check_cart(request):
     return cart
 
 
+
 def base_view(request):
     categories = Category.objects.all()
     products = Product.objects.all().filter(available=True)
     cart = check_cart(request)
-    # try:
-    #     cart_id = request.session['cart_id']
-    #     cart = Cart.objects.get(id=cart_id)
-    #     request.session['total'] = cart.item.count()
-    # except:
-    #     cart = Cart()
-    #     cart.save()
-    #     cart_id = cart.id
-    #     request.session['cart_id'] = cart_id
-    #     cart = Cart.objects.get(id=cart_id)
     context = {
         'categories': categories,
         'products': products,
@@ -49,17 +50,6 @@ def contact_view(request):
     categories = Category.objects.all()
     products = Product.objects.all().filter(available=True)
     cart = check_cart(request)
-    # cart = Cart.objects.first()
-    # try:
-    #     cart_id = request.session['cart_id']
-    #     cart = Cart.objects.get(id=cart_id)
-    #     request.session['total'] = cart.item.count()
-    # except:
-    #     cart = Cart()
-    #     cart.save()
-    #     cart_id = cart.id
-    #     request.session['cart_id'] = cart_id
-    #     cart = Cart.objects.get(id=cart_id)
     context = {
         'categories': categories,
         'products': products,
@@ -72,17 +62,6 @@ def about_view(request):
     categories = Category.objects.all()
     products = Product.objects.all().filter(available=True)
     cart = check_cart(request)
-    # cart = Cart.objects.first()
-    # try:
-    #     cart_id = request.session['cart_id']
-    #     cart = Cart.objects.get(id=cart_id)
-    #     request.session['total'] = cart.item.count()
-    # except:
-    #     cart = Cart()
-    #     cart.save()
-    #     cart_id = cart.id
-    #     request.session['cart_id'] = cart_id
-    #     cart = Cart.objects.get(id=cart_id)
     context = {
         'categories': categories,
         'products': products,
@@ -93,16 +72,6 @@ def about_view(request):
 
 @login_required
 def product_view(request, product_slug):
-    # try:
-    #     cart_id = request.session['cart_id']
-    #     cart = Cart.objects.get(id=cart_id)
-    #     request.session['total'] = cart.item.count()
-    # except:
-    #     cart = Cart()
-    #     cart.save()
-    #     cart_id = cart.id
-    #     request.session['cart_id'] = cart_id
-    #     cart = Cart.objects.get(id=cart_id)
     cart = check_cart(request)
     product = Product.objects.get(slug=product_slug)
     categories = Category.objects.all()
@@ -130,19 +99,8 @@ def category_view(request, category_slug):
 
 
 def cart_view(request):
-    # cart = Cart.objects.first()
     categories = Category.objects.all()
     cart = check_cart(request)
-    # try:
-    #     cart_id = request.session['cart_id']
-    #     cart = Cart.objects.get(id=cart_id)
-    #     request.session['total'] = cart.item.count()
-    # except:
-    #     cart = Cart()
-    #     cart.save()
-    #     cart_id = cart.id
-    #     request.session['cart_id'] = cart_id
-    #     cart = Cart.objects.get(id=cart_id)
     context = {
         'cart': cart,
         'categories': categories
@@ -151,16 +109,6 @@ def cart_view(request):
 
 
 def add_to_cart_view(request, product_slug):
-    # try:
-    #     cart_id = request.session['cart_id']
-    #     cart = Cart.objects.get(id=cart_id)
-    #     request.session['total'] = cart.item.count()
-    # except:
-    #     cart = Cart()
-    #     cart.save()
-    #     cart_id = cart.id
-    #     request.session['cart_id'] = cart_id
-    #     cart = Cart.objects.get(id=cart_id)
     cart = check_cart(request)
     product = Product.objects.get(slug=product_slug)
     cart.add_to_cart(product.slug)
@@ -173,16 +121,6 @@ def add_to_cart_view(request, product_slug):
 
 
 def remove_from_cart_view(request, product_slug):
-    # try:
-    #     cart_id = request.session['cart_id']
-    #     cart = Cart.objects.get(id=cart_id)
-    #     request.session['total'] = cart.item.count()
-    # except:
-    #     cart = Cart()
-    #     cart.save()
-    #     cart_id = cart.id
-    #     request.session['cart_id'] = cart_id
-    #     cart = Cart.objects.get(id=cart_id)
     cart = check_cart(request)
     product = Product.objects.get(slug=product_slug)
     cart.remove_from_cart(product.slug)
@@ -195,21 +133,10 @@ def remove_from_cart_view(request, product_slug):
 
 
 def change_item_qty(request):
-    # try:
-    #     cart_id = request.session['cart_id']
-    #     cart = Cart.objects.get(id=cart_id)
-    #     request.session['total'] = cart.item.count()
-    # except:
-    #     cart = Cart()
-    #     cart.save()
-    #     cart_id = cart.id
-    #     request.session['cart_id'] = cart_id
-    #     cart = Cart.objects.get(id=cart_id)
     cart = check_cart(request)
     qty = request.GET.get('qty')
     item_id = request.GET.get('item_id')
     cart_item = CartItem.objects.get(id=int(item_id))
-    # cart_item.qty = int(qty)
     cart_item.item_total = int(qty) * Decimal(cart_item.product.price)
     # cart_item.save()
     # new_cart_total = 0.00
@@ -222,16 +149,6 @@ def change_item_qty(request):
 
 
 def order_create_view(request):
-    # try:
-    #     cart_id = request.session['cart_id']
-    #     cart = Cart.objects.get(id=cart_id)
-    #     request.session['total'] = cart.item.count()
-    # except:
-    #     cart = Cart()
-    #     cart.save()
-    #     cart_id = cart.id
-    #     request.session['cart_id'] = cart_id
-    #     cart = Cart.objects.get(id=cart_id)
     cart = check_cart(request)
     form = OrderForm(request.POST or None)
     categories = Category.objects.all()
@@ -244,16 +161,7 @@ def order_create_view(request):
 
 
 def make_order_view(request):
-    # try:
-    #     cart_id = request.session['cart_id']
-    #     cart = Cart.objects.get(id=cart_id)
-    #     request.session['total'] = cart.item.count()
-    # except:
-    #     cart = Cart()
-    #     cart.save()
-    #     cart_id = cart.id
-    #     request.session['cart_id'] = cart_id
-    #     cart = Cart.objects.get(id=cart_id)
+
     cart = check_cart(request)
     form = OrderForm(request.POST or None)
     categories = Category.objects.all()
@@ -284,7 +192,6 @@ def make_order_view(request):
         )
         # new_order = Order()
         # new_order.user = request.user
-        # # new_order.save()
         # # new_order.items.add(cart)
         # new_order.items = cart
         # new_order.first_name = name
@@ -302,6 +209,7 @@ def make_order_view(request):
     return render(request, 'shop/order.html', context)
 
 
+@login_required
 def account_view(request):
     order = Order.objects.filter(user=request.user).order_by('-id')
     categories = Category.objects.all()
@@ -317,6 +225,7 @@ def account_view(request):
 def registration_view(request):
     form = RegistrationForm(request.POST or None)
     cart = check_cart(request)
+    categories = Category.objects.all()
     if form.is_valid():
         form.save()
         user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
@@ -325,6 +234,7 @@ def registration_view(request):
     context = {
         'form': form,
         'cart': cart,
+        'categories': categories
     }
     return render(request, 'shop/registration.html', context)
 
@@ -332,6 +242,7 @@ def registration_view(request):
 def login_view(request):
     form = LoginForm(request.POST or None)
     cart = check_cart(request)
+    categories = Category.objects.all()
     if form.is_valid():
         # user = authenticate(username=request.POST['username'], password=request.POST['password'])
         user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
@@ -340,5 +251,6 @@ def login_view(request):
     context = {
         'form': form,
         'cart': cart,
+        'categories': categories
     }
     return render(request, 'shop/login.html', context)

@@ -3,12 +3,6 @@ from decimal import Decimal
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models.signals import pre_save
-from django.urls import reverse
-from django.utils.text import slugify
-from transliterate import translit
-
-# from _tennis_shop import settings
 
 
 def image_folder(instance, filename):

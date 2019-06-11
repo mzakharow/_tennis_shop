@@ -41,73 +41,58 @@
 
     <a href='{% url 'shop:logout' %}'><button type="button" class="btn btn-danger">Выход</button></a>
 
-
     {% for items in order %}
         <div class="modal fade" id="detailModal-{{ items.id }}" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h3 class="modal-title" id="detailModalLabel">Детали заказа №{{ item.id }}</h3>
+                        <h3 class="modal-title" id="detailModalLabel">Детали заказа №{{ items.id }}</h3>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <h5>Заказчик: {{ items.first_name }} {{ items.last_name }}</h5>
-                        {% for item in items.items.items.all %}
-                            1.
-                            {{ item.id }}
-{#                            {% for order_item in item.items.all %}#}
-{#                                2. {{ order_item. }}#}
-{#                            {% endfor %}#}
-                        {% endfor %}
-                        {% if cart.item.count > 0 %}
-                            <table class="table table-striped">
-                                <thead>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Товар</th>
+                                <th scope="col">Количество</th>
+                                <th scope="col">Цена</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for item in items.items.item.all %}
                                 <tr>
-                                    <th scope="col"></th>
-                                    <th scope="col">Товар</th>
-                                    <th scope="col">Количество</th>
-                                    <th scope="col">Цена</th>
-                                    <th scope="col"></th>
+                                    <th scope="row"></th>
+                                    <td><h4>{{ item.product }}</h4></td>
+                                    <td><h5>{{ item.qty }}</h5></td>
+                                    <td><h5 id="cart-item-total-{{ item.id }}">{{ item.item_total }} руб.</h5></td>
                                 </tr>
-                                </thead>
-                                <tbody>
-                                {% for item in cart.item.all %}
-                                    <tr>
-                                        <th scope="row"></th>
-                                        <td><h4>{{ item.product.title }}</h4></td>
-                                        <td>
-                                            <form action="" method="get">
-                                                <input type="number" name="qty" class="cart-item-qty" data-id="{{ item.id }}" value="{{ item.qty }}" min="1" style="width: 40px">
-                                            </form>
-                                        </td>
-                                        <td><h5 id="cart-item-total-{{ item.id }}">{{ item.item_total }} руб.</h5></td>
-                                        <td><a href='{% url 'shop:remove_from_cart' product_slug=item.product.slug %}'><button type="button" class="btn btn-danger">Удалить</button></a></td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                                <tfoot>
-                                <tr>
-                                    <th></th>
-                                    <th>Итого:</th>
-                                    <th></th>
-                                    <th class="text" id="cart-total-price"><h4>{{ cart.cart_total }} руб.</h4></th>
-                                    <th></th>
-                                </tr>
-                                </tfoot>
-                            </table>
-                        {% else %}
-                            <h3>Упс, в заказе нет товаров</h3>
-                        {% endif %}
+                            {% endfor %}
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <th></th>
+                                <th>Итого:</th>
+                                <th></th>
+                                <th class="text" id="cart-total-price"><h4>{{ items.total }} руб.</h4></th>
+                                <th></th>
+                            </tr>
+                            </tfoot>
+                        </table>
 
-                        <h5>Параметры заказа:</h5>
+                        <p><h5>Заказчик: </h5></p>
+                        {{ items.first_name }} {{ items.last_name }}
+
+                        <p><h5>Параметры заказа:</h5></p>
                         {{ items.address }}
-                        {{ items.items }}
+
+                        <p><h5>Статус заказа: </h5></p>
+                        {{ items.status }}
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
                     </div>
                 </div>
             </div>
