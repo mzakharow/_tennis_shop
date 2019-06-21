@@ -14,7 +14,7 @@ def image_folder(instance, filename):
 class Category(models.Model):
     name = models.CharField(max_length=64)
     image = models.ImageField(upload_to=image_folder)
-    slug = models.SlugField(blank=True)
+    slug = models.SlugField(blank=True, unique=True)
 
     def __str__(self):
         return self.name

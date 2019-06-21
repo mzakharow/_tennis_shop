@@ -16,7 +16,8 @@ from shop.views import (base_view,
                         about_view,
                         account_view,
                         registration_view,
-                        login_view)
+                        login_view,
+                        ListProductView)
 
 app_name = 'shop'
 
@@ -36,5 +37,6 @@ urlpatterns = [
     path('registration/', registration_view, name='registration'),
     path('login/', login_view, name='login'),
     path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
+    path('products/', ListProductView.as_view(), name="product-all"),
     path(r'', base_view, name='base'),
 ]

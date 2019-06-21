@@ -7,6 +7,8 @@ from django.shortcuts import render
 from shop.models import Category, Product, Cart, CartItem, Order
 from django.urls import reverse
 from shop.forms import OrderForm, RegistrationForm, LoginForm
+from rest_framework import generics
+from .serializer import ProductSerializer
 
 
 def check_cart(request):
@@ -254,3 +256,11 @@ def login_view(request):
         'categories': categories
     }
     return render(request, 'shop/login.html', context)
+
+
+class ListProductView(generics.ListAPIView):
+    """
+    Providers a get method handler.
+    """
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
