@@ -9,6 +9,7 @@ from django.urls import reverse
 from shop.forms import OrderForm, RegistrationForm, LoginForm
 from rest_framework import generics
 from .serializer import ProductSerializer
+from .tasks import OrderCreated
 
 
 def check_cart(request):
@@ -207,6 +208,10 @@ def make_order_view(request):
         # new_order.save()
         del request.session['cart_id']
         del request.session['total']
+
+        # Асинхронная отправка сообщения
+        OrderCreated.delay(new_order.id)
+
         return HttpResponseRedirect(reverse('shop:confirmation'))
     return render(request, 'shop/order.html', context)
 
